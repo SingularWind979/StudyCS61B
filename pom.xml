@@ -9,12 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>labs</module>
-        <module>projects</module>
-        <module>lectures</module>
-        <module>homeworks</module>
-        <module>lectures</module>
-        <module>lectures/lecture1</module>
+        <module>lectures/lecture01</module>
     </modules>
 
     <properties>
