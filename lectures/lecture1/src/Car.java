@@ -73,5 +73,12 @@ public class Car {
         car2.accelerate(20);
         car2.printInfo();
         car2.stop();
+
+        Car car3 = new Car();
+        car3.printInfo();
+        car3.drive();
+        car3.accelerate(20);
+        car3.printInfo();
+        car3.stop();
     }
 }
