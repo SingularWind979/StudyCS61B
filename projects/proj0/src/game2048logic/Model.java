@@ -6,7 +6,6 @@ import game2048rendering.Tile;
 
 import java.util.Formatter;
 
-
 /** The state of a game of 2048.
  *  @author P. N. Hilfinger + Josh Hug
  */
@@ -99,6 +98,16 @@ public class Model {
      */
     public boolean maxTileExists() {
         // TODO: Task 2. Fill in this function.
+        for (int y = 0; y < board.size(); y++) {
+            for (int x = 0; x < board.size(); x++) {
+                if(board.tile(x, y) == null){
+                    continue;
+                }
+                if(board.tile(x, y).value() == MAX_PIECE){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 

@@ -3,8 +3,8 @@ package game2048rendering;
 import java.util.Arrays;
 import java.util.Formatter;
 
-/**
- * @author hug
+/** Represents a board of tiles.
+ *  @author Josh Hug
  */
 public class Board {
     /** Current contents of the board. */
