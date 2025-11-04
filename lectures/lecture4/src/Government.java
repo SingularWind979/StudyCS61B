@@ -65,8 +65,5 @@ public class Government {
             System.out.println("The best government has treasury " + favorite.treasury);
         }
     }
-
-    public static void  main(String[] args) {
-    }
 }
 
