@@ -77,15 +77,16 @@ public class DLList<T> {
         setEmpty();
     }
 
-    /** print the list */
-    public void print() {
+    /** return a string representation of the list */
+    public String print() {
         StringBuilder sb = new StringBuilder();
-        sb.append("List:[ ");
+        sb.append("List:[");
         for( Node p = sentF.next; p != sentB; p = p.next) {
-            sb.append(p.item).append(", ");
+            sb.append(p.item).append("->");
         }
+        sb.delete(sb.length() - 2, sb.length());
         sb.append("]");
-        System.out.println(sb);
+        return sb.toString();
     }
 
 
@@ -169,9 +170,9 @@ public class DLList<T> {
 
         // ✅ Test removeFirst and removeLast
         list.removeFirst();  // removes 5
-        list.print();
+        System.out.println(list.print());
         list.removeLast();   // removes 20
-        list.print();
+        System.out.println(list.print());
 
         System.out.println("Size after removing: " + list.size()); // expect 2
         System.out.println("First: " + list.getFirst());           // expect 10
@@ -179,9 +180,9 @@ public class DLList<T> {
 
         // ✅ Test empty behavior
         list.removeFirst();  // removes 10
-        list.print();
+        System.out.println(list.print());
         list.removeLast();   // removes 15
-        list.print();
+        System.out.println(list.print());
 
         System.out.println("Size after clearing: " + list.size()); // expect 0
 
