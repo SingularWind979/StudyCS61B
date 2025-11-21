@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public class Puzzle {
 
-    static final File ANSWER_FILE = new File("labs/lab03/src/puzzle/answer.txt");
+    static final File ANSWER_FILE = new File("src/puzzle/answer.txt");
     static int guessThis = 0;
 
     public static int puzzle() {

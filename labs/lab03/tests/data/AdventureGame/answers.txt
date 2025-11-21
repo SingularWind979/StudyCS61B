@@ -1,5 +1,5 @@
 It's a wonderful day of learning about computer science! We are going to see so many cool things today!
-Let's go! (To answer the prompts, type the possibilities in the brackets to go to that choice)"
+Let's go! (To answer the prompts, type the possibilities in the brackets to go to that choice)
 
 >> [go]
 In Soda 326, you can find the computers known as "The Hive". It is a little-known fact that
@@ -33,7 +33,7 @@ Try again! You got 1 animals correct!
 Try again! You got 0 animals correct!
 Woah! There are even more neat books here!
 - These bushy-tailed friends are everywhere in and around the trees on campus, and know the best parts of Java.
-- These tiny birds flap very fast, drink nectar, and know how to make simpler Java appplications.
+- These tiny birds flap very fast, drink nectar, and know how to make simpler Java applications.
 - Type their names into the terminal (separated by ',')
 Try again! You got 1 animals correct!
 Well, there's nothing left here! press enter to move.

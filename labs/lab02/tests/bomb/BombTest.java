@@ -12,7 +12,7 @@ import static org.junit.Assert.fail;
 public class BombTest {
     // DO NOT MODIFY THIS FILE
     // You won't be able to find any passwords here, sorry!
-    public static final String BOMB_FILE = "labs/lab2/src/bomb/Bomb.java";
+    public static final String BOMB_FILE = "src/bomb/Bomb.java";
     public static String[] lines;
 
     @Test

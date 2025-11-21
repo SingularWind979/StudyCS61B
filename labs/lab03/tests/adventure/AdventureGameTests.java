@@ -17,7 +17,7 @@ import static com.google.common.truth.Truth.assertWithMessage;
 
 @CaptureSystemOutput
 public class AdventureGameTests {
-    static final String DATA_PATH = "labs/lab03/tests/data/";
+    static final String DATA_PATH = "tests/data/";
     static final Class<?> BEE_CLASS = BeeCountingStage.class;
     static final Class<?> SPECIES_CLASS = SpeciesListStage.class;
     static final Class<?> PALINDROME_CLASS = PalindromeStage.class;
