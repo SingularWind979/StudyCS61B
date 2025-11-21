@@ -36,7 +36,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 // -Ethan
 
 /**
- * {@code @CaptureSystemOutput} is a JUnit JUpiter extension for capturing
+ * {@code @CaptureSystemOutput} is a JUnit Jupiter extension for capturing
  * output to {@code System.out} and {@code System.err}.
  *
  * <p><p>Based on code from Spring Boot's

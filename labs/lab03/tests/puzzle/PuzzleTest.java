@@ -12,8 +12,8 @@ import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
 public class PuzzleTest {
-    static final File PUZZLE_FILE = new File("labs/lab03/src/puzzle/Puzzle.java");
-    static final File PUZZLE_REFERENCE = new File("labs/lab03/tests/puzzle/PuzzleReference.txt");
+    static final File PUZZLE_FILE = new File("src/puzzle/Puzzle.java");
+    static final File PUZZLE_REFERENCE = new File("tests/puzzle/PuzzleReference.txt");
 
     @Test
     public void testPuzzle() {

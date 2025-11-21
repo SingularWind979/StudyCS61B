@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="guava-30.1.1-android">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../libs/guava-30.1.1-android.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
