@@ -4,13 +4,20 @@ public final class Sort {
         throw new UnsupportedOperationException("Cannot instantiate utility class Sort.");
     }
 
-    /** selection sort the input array */
+    /**
+     * selection sort the {@code input} array
+     * @param input an array of unsorted string
+     * */
     public static void sort(String[] input) {
         sort(input, 0);
     }
 
-    /** selection sort the input array from the index of start */
-    private static void sort(String[] input, int start) {
+    /**
+     * selection sort the {@code input} array from the index of {@code start}
+     * @param input an array of unsorted string
+     * @param start sort from the {@code start} index in the array
+     * */
+    static void sort(String[] input, int start) {
         // base case (recursion)
         if (start == input.length) {
             return;
@@ -23,8 +30,12 @@ public final class Sort {
         sort(input, start + 1);
     }
 
-    /** return the smallest string in input */
-    public static int findSmallest(String[] input, int start) {
+    /**
+     * return the smallest string in the {@code input} array from the index of {@code start}
+     * @param input  an array of unsorted string
+     * @param start find the smallest from the {@code start} index in the array
+     * */
+    static int findSmallest(String[] input, int start) {
         int smallestIndex = start;
         for (int i = start; i < input.length; i++) {
             if (input[i].compareTo(input[smallestIndex]) < 0) {
@@ -34,7 +45,13 @@ public final class Sort {
         return smallestIndex;
     }
 
-    public static void swap(String[] input, int a, int b) {
+    /**
+     * swap the {@code a}th and {@code b}th element in the {@code input} array
+     * @param input an array of unsorted string
+     * @param a swap location 1
+     * @param b swap location 2
+     */
+    static void swap(String[] input, int a, int b) {
         String temp = input[a];
         input[a] = input[b];
         input[b] = temp;
