@@ -51,7 +51,6 @@ public class TestVariance {
         assertThat(actual).isEqualTo(expected);
     }
 
-
     @Test
     public void testAverageEmptyList() {
         double[] input = {};
