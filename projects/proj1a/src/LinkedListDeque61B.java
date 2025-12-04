@@ -1,6 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Circular Doubly Linked List
+ *
+ * @author Singularwind
+ * @param <T> the type of items in the list
+ */
 public class LinkedListDeque61B<T> implements Deque61B<T> {
     private class Node {
         T item;
@@ -35,12 +41,12 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public void addFirst(T x) {
-        /* before: sentinel <-> first
-            after: sentinel <-> newFirst <-> first */
-        Node first = sentinel.next;
-        Node newFirst = new Node(x, sentinel, first);
-        sentinel.next = newFirst;
-        first.prev = newFirst;
+        // sentinel <- newFirst -> oldFirst
+        Node newFirst = new Node(x, sentinel, sentinel.next);
+        // sentinel -> newFirst
+        newFirst.prev.next = newFirst;  // newFirst.prev is sentinel
+        // newFirst <- oldFirst
+        newFirst.next.prev = newFirst;  // newFirst.next is oldFirst
         size++;
     }
 
@@ -51,12 +57,12 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public void addLast(T x) {
-        /* before: last <-> sentinel
-            after: last <-> newFirst <-> sentinel */
-        Node last = sentinel.prev;
-        Node newLast = new Node(x, last, sentinel);
-        sentinel.prev = newLast;
-        last.next = newLast;
+        // oldLast <- newLast -> sentinel
+        Node newLast = new Node(x, sentinel.prev, sentinel);
+        // newLast <- sentinel
+        newLast.next.prev = newLast;    // newLast.next is sentinel
+        // oldLast -> newLast
+        newLast.prev.next = newLast;    // newLast.prev is oldLast
         size++;
     }
 
@@ -81,7 +87,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        return size() == 0;
     }
 
     /**
@@ -91,7 +97,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**
@@ -101,7 +107,17 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public T removeFirst() {
-        return null;
+        if (isEmpty()) {
+            return null;
+        }
+        // sentinel <-> oldFirst <-> newFirst
+        Node oldFirst = sentinel.next;
+        // sentinel -> newFirst
+        oldFirst.prev.next = oldFirst.next; // oldFirst.prev is sentinel, oldFirst.next is newFirst
+        // sentinel <- newFirst
+        oldFirst.next.prev = oldFirst.prev; // oldFirst.next is newFirst, oldFirst.prev is sentinel
+        size--;
+        return oldFirst.item;
     }
 
     /**
@@ -111,7 +127,17 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public T removeLast() {
-        return null;
+        if (isEmpty()) {
+            return null;
+        }
+        // newLast <-> oldLast <-> sentinel
+        Node oldLast = sentinel.prev;
+        // newLast <- sentinel
+        oldLast.next.prev = oldLast.prev;   // oldLast.next is sentinel, oldLast.prev is newLast
+        // sentinel -> newLast
+        oldLast.prev.next = oldLast.next;   // oldLast.prev is newLast , oldLast.next is sentinel
+        size--;
+        return oldLast.item;
     }
 
     /**
@@ -125,7 +151,19 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public T get(int index) {
-        return null;
+        if (index < 0 || index >= size) {
+            return null;
+        }
+        if (index == 0) {
+            return sentinel.next.item;
+        } else if (index == size - 1) {
+            return sentinel.prev.item;
+        }
+        Node p = sentinel.next;
+        for (int i = 0; i < index; i++) {
+            p = p.next;
+        }
+        return p.item;
     }
 
     /**
@@ -138,6 +176,24 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public T getRecursive(int index) {
+        if (index < 0 || index >= size) {
+            return null;
+        }
+        return getRecursive(sentinel.next, index);
+    }
+
+    private T getRecursive(Node current, int index) {
+        if(index == 0) {
+            return  current.item;
+        }
+        return getRecursive(current.next, index - 1);
+    }
+
+    private void add(T x, int index) {
+
+    }
+
+    private T remove(int index) {
         return null;
     }
 }
