@@ -1,91 +1,147 @@
-public class SLList {
-    private static class IntNode {
-        public int item;
-        public IntNode next;
-        IntNode(int item, IntNode next) {
+/**
+ * Name: SLList (Singly Linked List linear with one front sentinel).
+ * Topology: sentinel → node1 → node2 → node3 → ... → nodeN
+ *
+ * @param <T> Type of elements in the list
+ * @author Singularwind
+ * */
+public class SLList<T> implements MyList<T> {
+    /** singly linked node */
+    private static class Node<T> {
+        public T item;
+        public Node<T> next;
+        Node(T item, Node<T> next) {
             this.item = item;
             this.next = next;
         }
     }
 
     // sentinel.next is the first node
-    private IntNode sentinel;
+    private Node<T> sentinel;
+    // size of the list
     private int size;
-
     SLList() {
-        sentinel = new IntNode(-1, null);
+        sentinel = new Node<>(null, null);
         size = 0;
     }
-
-    SLList(int item) {
+    SLList(T item) {
         this();
         addFirst(item);
     }
 
-    /** Returns the number of items in the list using recursion. */
-    public int size() {
-        return size;
-    }
-
-    /** Adds an item to the front of the list. */
-    public void addFirst(int item) {
-        sentinel.next = new IntNode(item, sentinel.next);
+    /**
+     * Add an item to the front of the list.
+     *
+     * @param item the item to add
+     */
+    @Override
+    public void addFirst(T item) {
+        sentinel.next = new Node<>(item, sentinel.next);
         size++;
     }
 
-    /** Retrieves the front item from the list. */
-    public int getFirst() {
+    /**
+     * Add an item to the end of the list.
+     *
+     * @param item the item to add
+     */
+    @Override
+    public void addLast(T item) {
+        Node<T> p = sentinel;
+        while (p.next != null) {
+            p = p.next;
+        }
+        p.next = new Node<>(item, null);
+        size++;
+    }
+
+    /**
+     * Retrieves the first item in the list.
+     *
+     * @return the first item
+     */
+    @Override
+    public T getFirst() {
         if (sentinel.next == null) {
             throw new IllegalStateException("List is empty");
         }
         return sentinel.next.item;
     }
 
-    /** Adds an item to the end of the list. */
-    public void addLast(int item) {
-        IntNode p = sentinel;
-        while (p.next != null) {
-            p = p.next;
-        }
-        p.next = new IntNode(item, null);
-        size++;
-    }
-    /** Retrieves the last item from the list. */
-    public int getLast() {
+    /**
+     * Retrieves the last item of the list.
+     *
+     * @return the last item
+     */
+    @Override
+    public T getLast() {
         if (sentinel.next == null) {
             throw new IllegalStateException("List is empty");
         }
-        IntNode p = sentinel;
+        Node<T> p = sentinel;
         while (p.next != null) {
             p = p.next;
         }
         return p.item;
     }
 
-    public static void main(String[] args) {
-        SLList list = new SLList();
+    /**
+     * Removes and returns the first item of the list.
+     *
+     * @return the removed item
+     */
+    @Override
+    public T removeFirst() {
+        return null;
+    }
 
-        // ✅ Test addFirst
-        list.addFirst(10);
-        list.addFirst(5);
-        System.out.println("After addFirst: first = " + list.getFirst()); // expect 5
-        System.out.println("Size = " + list.size());                      // expect 2
+    /**
+     * Removes and returns the first item of the list.
+     *
+     * @return the removed item
+     */
+    @Override
+    public T removeLast() {
+        return null;
+    }
 
-        // ✅ Test addLast
-        list.addLast(15);
-        list.addLast(20);
-        System.out.println("After addLast: last = " + list.getLast());    // expect 20
-        System.out.println("Size = " + list.size());                      // expect 4
+    /**
+     * Retrieves the {@code index}th item of the list.
+     *
+     * @param index the index of the item you want
+     * @return the {@code index}th item
+     */
+    @Override
+    public T get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        Node<T> p = sentinel.next;
+        for (int i = 0; i < index; i++) {
+            p = p.next;
+        }
+        return p.item;
+    }
 
-        // ✅ Test getFirst and getLast
-        System.out.println("First element: " + list.getFirst());          // expect 5
-        System.out.println("Last element: " + list.getLast());            // expect 20
+    /**
+     * Inserts an item at the specified index.
+     *
+     * @param item  the item to insert
+     * @param index the position to insert
+     * @return the inserted item
+     */
+    @Override
+    public T insert(T item, int index) {
+        return null;
+    }
 
-        // ✅ Add and check again
-        list.addFirst(1);
-        list.addLast(25);
-        System.out.println("After more adds: first = " + list.getFirst()); // expect 1
-        System.out.println("Last = " + list.getLast());                    // expect 25
-        System.out.println("Final size = " + list.size());                 // expect 6
+    /**
+     * Returns the size of the list (number of items).
+     *
+     * @return the size of the list
+     */
+    @Override
+    public int size() {
+        return size;
     }
 }
