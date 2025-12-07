@@ -4,7 +4,8 @@
  *
  * @param <T> Type of elements in the list
  * @author Singularwind
- * */
+ */
+
 public class SLList<T> implements MyList<T> {
     /** singly linked node */
     private static class Node<T> {
@@ -23,10 +24,6 @@ public class SLList<T> implements MyList<T> {
     SLList() {
         sentinel = new Node<>(null, null);
         size = 0;
-    }
-    SLList(T item) {
-        this();
-        addFirst(item);
     }
 
     /**
@@ -92,17 +89,25 @@ public class SLList<T> implements MyList<T> {
      */
     @Override
     public T removeFirst() {
-        return null;
+        Node<T> oldFirst = getNode(0);
+        Node<T> newFirst = getNode(1);
+        sentinel.next = newFirst;
+        size--;
+        return oldFirst.item;
     }
 
     /**
-     * Removes and returns the first item of the list.
+     * Removes and returns the last item of the list.
      *
      * @return the removed item
      */
     @Override
     public T removeLast() {
-        return null;
+        Node<T> oldLast = getNode(size - 1);
+        Node<T> newLast = getNode(size - 2);
+        newLast.next = null;
+        size--;
+        return oldLast.item;
     }
 
     /**
@@ -116,11 +121,7 @@ public class SLList<T> implements MyList<T> {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
-        Node<T> p = sentinel.next;
-        for (int i = 0; i < index; i++) {
-            p = p.next;
-        }
-        return p.item;
+        return getNode(index).item;
     }
 
     /**
@@ -132,7 +133,11 @@ public class SLList<T> implements MyList<T> {
      */
     @Override
     public T insert(T item, int index) {
-        return null;
+        Node<T> oldI1thNode = getNode(index - 1);
+        Node<T> oldIthNode = getNode(index);
+        Node<T> newIthNode = new Node<>(item, oldIthNode);
+        oldI1thNode.next = newIthNode;
+        return item;
     }
 
     /**
@@ -143,5 +148,28 @@ public class SLList<T> implements MyList<T> {
     @Override
     public int size() {
         return size;
+    }
+
+    /**
+     * Print the items of the list.
+     */
+    @Override
+    public void print() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("List:[");
+        for(Node<T> p = sentinel.next; p != null; p = p.next) {
+            sb.append(p.item).append("->");
+        }
+        sb.delete(sb.length() - 2, sb.length());
+        sb.append("]");
+        System.out.println(sb);
+    }
+
+    private Node<T> getNode(int index) {
+        Node<T> p = sentinel.next;
+        for (int i = 0; i < index; i++) {
+            p = p.next;
+        }
+        return p;
     }
 }

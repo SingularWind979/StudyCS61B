@@ -4,7 +4,7 @@
  *
  * @param <T> Type of elements in the list
  * @author Singularwind
- * */
+ */
 public class DLList<T> implements MyList<T> {
     /** doubly linked node */
     private static class Node<T> {
@@ -96,7 +96,7 @@ public class DLList<T> implements MyList<T> {
     }
 
     /**
-     * Removes and returns the first item of the list.
+     * Removes and returns the last item of the list.
      *
      * @return the removed item
      */
@@ -119,7 +119,7 @@ public class DLList<T> implements MyList<T> {
      */
     @Override
     public T get(int index) {
-        return null;
+        return getNode(index).item;
     }
 
     /**
@@ -131,7 +131,9 @@ public class DLList<T> implements MyList<T> {
      */
     @Override
     public T insert(T item, int index) {
-        return null;
+        Node<T> oldIthItem = getNode(index);
+        Node<T> newIthItem = new Node<>(item, oldIthItem.prev, oldIthItem);
+        return item;
     }
 
     /**
@@ -142,6 +144,21 @@ public class DLList<T> implements MyList<T> {
     @Override
     public int size() {
         return size;
+    }
+
+    /**
+     * Print the items of the list.
+     */
+    @Override
+    public void print() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("List:[");
+        for( Node<T> p = sentF.next; p != sentB; p = p.next) {
+            sb.append(p.item).append("->");
+        }
+        sb.delete(sb.length() - 2, sb.length());
+        sb.append("]");
+        System.out.println(sb);
     }
 
     /** check if the list is empty */
@@ -178,15 +195,11 @@ public class DLList<T> implements MyList<T> {
         setEmpty();
     }
 
-    /** return a string representation of the list */
-    private String print() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("List:[");
-        for( Node<T> p = sentF.next; p != sentB; p = p.next) {
-            sb.append(p.item).append("->");
-        }
-        sb.delete(sb.length() - 2, sb.length());
-        sb.append("]");
-        return sb.toString();
+    private Node<T> getNode(int index) {
+            Node<T> p = sentF.next;
+            for (int i = 0; i < index; i++) {
+                p = p.next;
+            }
+            return p;
     }
 }

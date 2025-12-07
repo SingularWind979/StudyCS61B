@@ -65,7 +65,7 @@ public class AList<T> implements MyList<T> {
      */
     @Override
     public void addFirst(T item) {
-
+        // TODO: addFirst
     }
 
     /**
@@ -108,11 +108,12 @@ public class AList<T> implements MyList<T> {
      */
     @Override
     public T removeFirst() {
+        // TODO: removeFirst
         return null;
     }
 
     /**
-     * Removes and returns the first item of the list.
+     * Removes and returns the last item of the list.
      *
      * @return the removed item
      */
@@ -152,6 +153,7 @@ public class AList<T> implements MyList<T> {
      */
     @Override
     public T insert(T item, int index) {
+        // TODO: insert
         return null;
     }
 
@@ -163,5 +165,20 @@ public class AList<T> implements MyList<T> {
     @Override
     public int size() {
         return size;
+    }
+
+    /**
+     * Print the items of the list.
+     */
+    @Override
+    public void print() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("List:[");
+        for(int i = 0; i< size; i++) {
+            sb.append(items[i]).append(", ");
+        }
+        sb.delete(sb.length() - 2, sb.length());
+        sb.append("]");
+        System.out.println(sb);
     }
 }

@@ -41,7 +41,7 @@ public interface MyList<T> {
     public T removeFirst();
 
     /**
-     * Removes and returns the first item of the list.
+     * Removes and returns the last item of the list.
      *
      * @return the removed item
      */
@@ -70,4 +70,9 @@ public interface MyList<T> {
      * @return the size of the list
      */
     public int size();
+
+    /**
+     * Print the items of the list.
+     */
+    public void print();
 }
