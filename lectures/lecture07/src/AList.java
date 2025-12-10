@@ -1,9 +1,12 @@
 /**
- * My implement of ArrayList
+ * Name: AList (Array List).
+ * Topology: array-based
+ *
+ * @param <T> Type of elements in the list
  * @author Singularwind
  */
 
-public class AList<T> {
+public class AList<T> implements MyList<T> {
     // array that stores items
     private T[] items;
     // the capacity of items, capacity = items.length
@@ -25,8 +28,8 @@ public class AList<T> {
     }
 
     /**
-     * resize the list to the new capacity,
-     * create a new array and copy items over
+     * Resize the list to the new capacity,
+     * create a new array and copy items over.
      * @param newCapacity the new capacity of the list
      */
     private void resize(int newCapacity) {
@@ -40,61 +43,37 @@ public class AList<T> {
     }
 
     /**
-     * judge if the list is empty
-     * @return true if the list has no items
+     * Judge if the list is empty.
+     * @return true if the list has no item
      */
     private boolean isEmpty() {
         return size == 0;
     }
 
     /**
-     * judge if the list is full
-     * @return true if no more items can be inserted without resizing
+     * Judge if the list is full
+     * @return true if no more items can be added without resizing
      */
     private boolean isFull() {
         return size == capacity;
     }
 
     /**
-     * get the size of the list
-     * @return the size of the list
+     * Add an item to the front of the list.
+     *
+     * @param item the item to add
      */
-    public int size() {
-        return size;
+    @Override
+    public void addFirst(T item) {
+        // TODO: addFirst
     }
 
     /**
-     * get the {@code index}th item of the list
-     * @param index {@code index} = {0, 1, 2, ..., size - 1}
-     * @return the {@code index}th item
+     * Add an item to the end of the list.
+     *
+     * @param item the item to add
      */
-    public T get(int index) {
-        if (index > size - 1 || index < 0) {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-        }
-        return items[index];
-    }
-
-    /**
-     * get the first item of the list
-     * @return the first item
-     */
-    public T getFirst() {
-        return get(0);
-    }
-
-    /**
-     * get the last item of the list
-     * @return the last item
-     */
-    public T getLast() {
-        return get(size - 1);
-    }
-
-    /**
-     * add item to the last of the list
-     * @param item the new added item
-     */
+    @Override
     public void addLast(T item) {
         if (isFull()) {
             resize(size * RESIZE_FACTOR);
@@ -103,9 +82,42 @@ public class AList<T> {
     }
 
     /**
-     * remove the last item and return it
-     * @return the last item that has been removed
+     * Retrieves the first item in the list.
+     *
+     * @return the first item
      */
+    @Override
+    public T getFirst() {
+        return get(0);
+    }
+
+    /**
+     * Retrieves the last item of the list.
+     *
+     * @return the last item
+     */
+    @Override
+    public T getLast() {
+        return get(size - 1);
+    }
+
+    /**
+     * Removes and returns the first item of the list.
+     *
+     * @return the removed item
+     */
+    @Override
+    public T removeFirst() {
+        // TODO: removeFirst
+        return null;
+    }
+
+    /**
+     * Removes and returns the last item of the list.
+     *
+     * @return the removed item
+     */
+    @Override
     public T removeLast() {
         if (isEmpty()) {
             throw new IllegalArgumentException("Empty List");
@@ -116,5 +128,57 @@ public class AList<T> {
             resize(size / RESIZE_FACTOR);
         }
         return last;
+    }
+
+    /**
+     * Retrieves the {@code index}th item of the list.
+     *
+     * @param index the index of the item you want
+     * @return the {@code index}th item
+     */
+    @Override
+    public T get(int index) {
+        if (index > size - 1 || index < 0) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        return items[index];
+    }
+
+    /**
+     * Inserts an item at the specified index.
+     *
+     * @param item  the item to insert
+     * @param index the position to insert
+     * @return the inserted item
+     */
+    @Override
+    public T insert(T item, int index) {
+        // TODO: insert
+        return null;
+    }
+
+    /**
+     * Returns the size of the list (number of items).
+     *
+     * @return the size of the list
+     */
+    @Override
+    public int size() {
+        return size;
+    }
+
+    /**
+     * Print the items of the list.
+     */
+    @Override
+    public void print() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("List:[");
+        for(int i = 0; i< size; i++) {
+            sb.append(items[i]).append(", ");
+        }
+        sb.delete(sb.length() - 2, sb.length());
+        sb.append("]");
+        System.out.println(sb);
     }
 }
