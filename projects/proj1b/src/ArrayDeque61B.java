@@ -1,5 +1,5 @@
+import java.util.ArrayList;
 import java.util.List;
-import java.lang.Math;
 
 /**
  * Circular Array Deque
@@ -8,15 +8,24 @@ import java.lang.Math;
  * @param <T> the type of items in the deque
  */
 public class ArrayDeque61B<T> implements Deque61BB<T> {
-    private T[] items;  // store elements of the array deque
-    private static
-    private int first;  // index of the front element
-    private int last;   // index of the back element
+    /* class constants */
+    public static final int INIT_CAPACITY = 8;  // the initial capacity
+    public static final int RESIZE_FACTOR = 2;  // a geometric resize factor
 
+    /* instance variables */
+    private T[] items;      // backing array to store elements
+    private int capacity;   // the current capacity (equals to items.length())
+    private int size;       // the numbers of the really stored elements
+    private int nextFirst;  // index of the next front element to add, starting from the middle
+    private int nextLast;   // index of the next back  element to add, starting from the middle
+
+    /* constructor */
     public ArrayDeque61B() {
-        items = (T[]) new Object[8];
-        first = 0;
-        last = 0;
+        items = (T[]) new Object[INIT_CAPACITY];
+        capacity = INIT_CAPACITY;
+        size = 0;
+        nextFirst = capacity / 2;
+        nextLast  = capacity / 2 + 1;
     }
 
     /**
@@ -26,7 +35,10 @@ public class ArrayDeque61B<T> implements Deque61BB<T> {
      */
     @Override
     public void addFirst(T x) {
-
+        // TODO: array fills, which needs resizing
+        items[nextFirst] = x;
+        nextFirst = validifyIndex(nextFirst - 1);
+        size++;
     }
 
     /**
@@ -36,7 +48,10 @@ public class ArrayDeque61B<T> implements Deque61BB<T> {
      */
     @Override
     public void addLast(T x) {
-
+        // TODO: array fills, which needs resizing
+        items[nextLast] = x;
+        nextLast = validifyIndex(nextLast + 1);
+        size++;
     }
 
     /**
@@ -46,7 +61,12 @@ public class ArrayDeque61B<T> implements Deque61BB<T> {
      */
     @Override
     public List<T> toList() {
-        return List.of();
+        List<T> returnList = new ArrayList<>();
+        int first = validifyIndex(nextFirst + 1);
+        for (int i = 0; i < size(); i++) {
+            returnList.add(items[validifyIndex(first + i)]);
+        }
+        return returnList;
     }
 
     /**
@@ -56,7 +76,7 @@ public class ArrayDeque61B<T> implements Deque61BB<T> {
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        return size() == 0;
     }
 
     /**
@@ -66,7 +86,7 @@ public class ArrayDeque61B<T> implements Deque61BB<T> {
      */
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**
@@ -114,5 +134,16 @@ public class ArrayDeque61B<T> implements Deque61BB<T> {
     @Override
     public T getRecursive(int index) {
         return null;
+    }
+
+
+    /**
+     * change index to valid index via floorMod
+     *
+     * @param index the original index, maybe negative
+     * @return valid index of a circular array
+     */
+    private int validifyIndex(int index) {
+        return Math.floorMod(index, capacity);
     }
 }
