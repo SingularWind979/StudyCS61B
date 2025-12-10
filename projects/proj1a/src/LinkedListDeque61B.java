@@ -2,12 +2,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Circular Doubly Linked List
+ * Circular Doubly Linked Deque
  *
- * @author Singularwind
- * @param <T> the type of items in the list
+ * @author SingularWind
+ * @param <T> the type of items in the deque
  */
-public class LinkedListDeque61BA<T> implements Deque61BA<T> {
+public class LinkedListDeque61B<T> implements Deque61BA<T> {
     private class Node {
         T item;
         Node prev;
@@ -27,7 +27,7 @@ public class LinkedListDeque61BA<T> implements Deque61BA<T> {
     private final Node sentinel;
     private int size;
 
-    public LinkedListDeque61BA() {
+    public LinkedListDeque61B() {
         sentinel = new Node();
         sentinel.prev = sentinel;
         sentinel.next = sentinel;

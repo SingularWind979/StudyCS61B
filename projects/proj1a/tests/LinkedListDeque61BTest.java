@@ -3,18 +3,18 @@ import org.junit.jupiter.api.Test;
 import static com.google.common.truth.Truth.assertThat;
 
 /** Performs some basic linked list tests. */
-public class LinkedListDeque61BATest {
+public class LinkedListDeque61BTest {
     // test addFirst
     @Test
     public void addFirstToEmptyTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         assertThat(lld.isEmpty()).isTrue();
         lld.addFirst(1);
         assertThat(lld.toList()).containsExactly(1).inOrder();
     }
     @Test
     public void addFirstToNonemptyTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         lld.addFirst(1);
         lld.addFirst(2);
         lld.addFirst(3);
@@ -25,14 +25,14 @@ public class LinkedListDeque61BATest {
     // test addLast
     @Test
     public void addLastToEmptyTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         assertThat(lld.isEmpty()).isTrue();
         lld.addLast(1);
         assertThat(lld.toList()).containsExactly(1).inOrder();
     }
     @Test
     public void addLastToNonemptyTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         lld.addLast(1);
         lld.addLast(2);
         lld.addLast(3);
@@ -43,14 +43,14 @@ public class LinkedListDeque61BATest {
     // test removeFirst
     @Test
     public void removeFirstFromEmptyTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         assertThat(lld.isEmpty()).isTrue();
         assertThat(lld.removeFirst()).isNull();
         assertThat(lld.toList()).isEmpty();
     }
     @Test
     public void removeFirstFromNonemptyTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         lld.addFirst(1);
         lld.addFirst(2);
         lld.addFirst(3);
@@ -60,7 +60,7 @@ public class LinkedListDeque61BATest {
     }
     @Test
     public void removeFromNearlyEmptyTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         lld.addFirst(1);
         assertThat(lld.removeFirst()).isEqualTo(1);
         assertThat(lld.toList()).isEmpty();
@@ -69,14 +69,14 @@ public class LinkedListDeque61BATest {
     // test removeLast
     @Test
     public void removeLastFromEmptyTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         assertThat(lld.isEmpty()).isTrue();
         assertThat(lld.removeLast()).isNull();
         assertThat(lld.toList()).isEmpty();
     }
     @Test
     public void removeLastFromNonemptyTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         lld.addFirst(1);
         lld.addFirst(2);
         lld.addFirst(3);
@@ -86,7 +86,7 @@ public class LinkedListDeque61BATest {
     }
     @Test
     public void removeLastFromNearlyEmptyTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         lld.addFirst(1);
         assertThat(lld.removeLast()).isEqualTo(1);
         assertThat(lld.toList()).isEmpty();
@@ -95,7 +95,7 @@ public class LinkedListDeque61BATest {
     // test add after remove
     @Test
     public void addAfterRemoveFromEmptyTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         assertThat(lld.isEmpty()).isTrue();
         lld.removeFirst();
         lld.addFirst(1);
@@ -104,7 +104,7 @@ public class LinkedListDeque61BATest {
     }
     @Test
     public void addAfterRemoveFromNearlyEmptyTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         lld.addFirst(1);
         lld.addFirst(2);
         lld.removeFirst();
@@ -115,7 +115,7 @@ public class LinkedListDeque61BATest {
     // test get
     @Test
     public void getValidTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         lld.addFirst(1);
         lld.addFirst(2);
         lld.addFirst(3);
@@ -123,7 +123,7 @@ public class LinkedListDeque61BATest {
     }
     @Test
     public void getOobLargeTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         lld.addFirst(1);
         lld.addFirst(2);
         lld.addFirst(3);
@@ -131,7 +131,7 @@ public class LinkedListDeque61BATest {
     }
     @Test
     public void getOobNegTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         lld.addFirst(1);
         lld.addFirst(2);
         lld.addFirst(3);
@@ -141,7 +141,7 @@ public class LinkedListDeque61BATest {
     // test getRecursive
     @Test
     public void getRecursiveValidTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         lld.addFirst(1);
         lld.addFirst(2);
         lld.addFirst(3);
@@ -149,7 +149,7 @@ public class LinkedListDeque61BATest {
     }
     @Test
     public void getRecursiveOobLargeTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         lld.addFirst(1);
         lld.addFirst(2);
         lld.addFirst(3);
@@ -157,7 +157,7 @@ public class LinkedListDeque61BATest {
     }
     @Test
     public void getRecursiveOobNegTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         lld.addFirst(1);
         lld.addFirst(2);
         lld.addFirst(3);
@@ -167,28 +167,28 @@ public class LinkedListDeque61BATest {
     // test size
     @Test
     public void sizeTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         lld.addFirst(1);
         lld.addFirst(2);
         assertThat(lld.size()).isEqualTo(2);
     }
     @Test
     public void sizeAfterAddToEmptyTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         assertThat(lld.isEmpty()).isTrue();
         lld.addFirst(1);
         assertThat(lld.size()).isEqualTo(1);
     }
     @Test
     public void sizeAfterRemoveFromEmptyTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         assertThat(lld.isEmpty()).isTrue();
         lld.removeFirst();
         assertThat(lld.size()).isEqualTo(0);
     }
     @Test
     public void sizeAfterRemoveFromNearlyEmptyTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         lld.addFirst(1);
         lld.removeFirst();
         assertThat(lld.size()).isEqualTo(0);
@@ -197,12 +197,12 @@ public class LinkedListDeque61BATest {
     // test isEmpty
     @Test
     public void isEmptyTrueTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         assertThat(lld.isEmpty()).isTrue();
     }
     @Test
     public void isEmptyFalseTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         lld.addFirst(1);
         assertThat(lld.isEmpty()).isFalse();
     }
@@ -210,12 +210,12 @@ public class LinkedListDeque61BATest {
     // test toList
     @Test
     public void toListEmptyTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         assertThat(lld.toList()).isEmpty();
     }
     @Test
     public void toListNonemptyTest() {
-        Deque61BA<Integer> lld = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld = new LinkedListDeque61B<>();
         lld.addFirst(1);
         lld.addFirst(2);
         lld.addFirst(3);
@@ -224,7 +224,7 @@ public class LinkedListDeque61BATest {
 
     @Test
     public void addFirstTestBasic() {
-        Deque61BA<String> lld1 = new LinkedListDeque61BA<>();
+        Deque61BA<String> lld1 = new LinkedListDeque61B<>();
 
         lld1.addFirst("back");     // after this call we expect: ["back"]
         assertThat(lld1.toList()).containsExactly("back").inOrder();
@@ -243,7 +243,7 @@ public class LinkedListDeque61BATest {
 
     @Test
     public void addLastTestBasic() {
-        Deque61BA<String> lld1 = new LinkedListDeque61BA<>();
+        Deque61BA<String> lld1 = new LinkedListDeque61B<>();
 
         lld1.addLast("front");     // after this call we expect: ["front"]
         lld1.addLast("middle");    // after this call we expect: ["front", "middle"]
@@ -253,7 +253,7 @@ public class LinkedListDeque61BATest {
 
     @Test
     public void addFirstAndAddLastTest() {
-        Deque61BA<Integer> lld1 = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld1 = new LinkedListDeque61B<>();
 
         /* I've decided to add in comments the state after each call for the convenience of the
            person reading this test. Some programmers might consider this excessively verbose. */
@@ -267,7 +267,7 @@ public class LinkedListDeque61BATest {
 
     @Test
     public void isEmptyTestBasic() {
-        Deque61BA<Integer> lld1 = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld1 = new LinkedListDeque61B<>();
 
         assertThat(lld1.isEmpty()).isTrue();
 
@@ -284,7 +284,7 @@ public class LinkedListDeque61BATest {
 
     @Test
     public void sizeTestBasic() {
-        Deque61BA<Integer> lld1 = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld1 = new LinkedListDeque61B<>();
 
         assertThat(lld1.size()).isEqualTo(0);
 
@@ -300,7 +300,7 @@ public class LinkedListDeque61BATest {
 
     @Test
     public void isEmptyAndSizeTest() {
-        Deque61BA<Integer> lld1 = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld1 = new LinkedListDeque61B<>();
 
         assertThat(lld1.isEmpty()).isTrue();
         assertThat(lld1.size()).isEqualTo(0);
@@ -316,7 +316,7 @@ public class LinkedListDeque61BATest {
 
     @Test
     public void getTestBasic() {
-        Deque61BA<Integer> lld1 = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld1 = new LinkedListDeque61B<>();
 
         lld1.addLast(1);
         lld1.addLast(2);
@@ -334,7 +334,7 @@ public class LinkedListDeque61BATest {
 
     @Test
     public void getRecursiveTestBasic() {
-        Deque61BA<Integer> lld1 = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld1 = new LinkedListDeque61B<>();
 
         lld1.addLast(1);
         lld1.addLast(2);
@@ -352,7 +352,7 @@ public class LinkedListDeque61BATest {
 
     @Test
     public void removeFirstTestBasic() {
-        Deque61BA<Integer> lld1 = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld1 = new LinkedListDeque61B<>();
 
         lld1.addFirst(1);
         lld1.addFirst(2);
@@ -368,7 +368,7 @@ public class LinkedListDeque61BATest {
 
     @Test
     public void removeLastTestBasic() {
-        Deque61BA<Integer> lld1 = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld1 = new LinkedListDeque61B<>();
 
         lld1.addLast(1);
         lld1.addLast(2);
@@ -384,7 +384,7 @@ public class LinkedListDeque61BATest {
 
     @Test
     public void removeFirstAndRemoveLastTest() {
-        Deque61BA<Integer> lld1 = new LinkedListDeque61BA<>();
+        Deque61BA<Integer> lld1 = new LinkedListDeque61B<>();
 
         lld1.addLast(1);
         lld1.addLast(2);
