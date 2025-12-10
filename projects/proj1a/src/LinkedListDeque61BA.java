@@ -7,7 +7,7 @@ import java.util.List;
  * @author Singularwind
  * @param <T> the type of items in the list
  */
-public class LinkedListDeque61B<T> implements Deque61B<T> {
+public class LinkedListDeque61BA<T> implements Deque61BA<T> {
     private class Node {
         T item;
         Node prev;
@@ -27,7 +27,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
     private final Node sentinel;
     private int size;
 
-    public LinkedListDeque61B() {
+    public LinkedListDeque61BA() {
         sentinel = new Node();
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
@@ -183,7 +183,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
     }
 
     private T getRecursive(Node current, int index) {
-        if(index == 0) {
+        if (index == 0) {
             return  current.item;
         }
         return getRecursive(current.next, index - 1);

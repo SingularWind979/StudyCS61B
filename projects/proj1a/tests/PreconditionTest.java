@@ -20,7 +20,7 @@ public class PreconditionTest {
 
     /** Returns the inner class of lld. Asserts there is exactly one inner class. */
     private static Class<?> getLldInnerClass() {
-        Class<?>[] innerClasses = LinkedListDeque61B.class.getDeclaredClasses();
+        Class<?>[] innerClasses = LinkedListDeque61BA.class.getDeclaredClasses();
         assertWithMessage("LinkedListDeque61B should have exactly one inner class").that(innerClasses).hasLength(1);
         return innerClasses[0];
     }
@@ -39,7 +39,7 @@ public class PreconditionTest {
     @Order(0)
     @DisplayName("LinkedListDeque61B is structured and generified properly")
     public void genericTest() {
-        Class<?> lldClass = LinkedListDeque61B.class;
+        Class<?> lldClass = LinkedListDeque61BA.class;
         int lldNumParams = lldClass.getTypeParameters().length;
         assertWithMessage("LinkedListDeque61B should be generified with one type parameter")
                 .that(lldNumParams).isEqualTo(1);
@@ -51,20 +51,21 @@ public class PreconditionTest {
                 .that(nodeClass.getTypeParameters()).isEmpty();
 
         // Convoluted check that value field of node is actually generic instead of Object
-        LinkedListDeque61B<Integer> lld = new LinkedListDeque61B<>();
+        LinkedListDeque61BA<Integer> lld = new LinkedListDeque61BA<>();
         Field[] fields = lld.getClass().getDeclaredFields();
         for (Field f : fields) {
             if (f.getType().equals(nodeClass)) {
                 try {
                     f.setAccessible(true);
                     Object node = f.get(lld);
-                    for (Field innerField : node.getClass().getDeclaredFields())
+                    for (Field innerField : node.getClass().getDeclaredFields()) {
                         if (innerField.getType().equals(Object.class)) { // value field
                             innerField.setAccessible(true);
                             assertWithMessage("Value field of node should be generic")
                                     .that(innerField.getGenericType())
                                     .isNotEqualTo(Object.class);
                         }
+                    }
                 } catch (IllegalAccessException e) {
                     fail(e.getMessage());
                 }
@@ -94,7 +95,7 @@ public class PreconditionTest {
     @DisplayName("LinkedListDeque61B has no fields besides nodes and primitives")
     public void noNonTrivialFieldsTest() {
         Class<?> nodeClass = getLldInnerClass();
-        Stream<Field> badLldFields = getBadFields(LinkedListDeque61B.class, nodeClass);
+        Stream<Field> badLldFields = getBadFields(LinkedListDeque61BA.class, nodeClass);
         Stream<Field> badNodeFields = getBadFields(nodeClass, nodeClass);
         List<Field> badFields = Stream.concat(badLldFields, badNodeFields).toList();
 
@@ -103,15 +104,15 @@ public class PreconditionTest {
                 .map(f -> f.getType().getSimpleName() + " " + f.getName())
                 .reduce("", (a, b) -> a + "\n\t" + b);
 
-        assertWithMessage("Found fields that are not nodes or primitives, or contain fields that are not nodes or " +
-                "primitives:" + msg).that(badFields).isEmpty();
+        assertWithMessage("Found fields that are not nodes or primitives, or contain fields that are not nodes or "
+                + "primitives:" + msg).that(badFields).isEmpty();
     }
 
     @Test
     @Order(3)
     @DisplayName("LinkedListDeque61B has only an empty constructor")
     public void noNonTrivialConstructorsTest() {
-        Constructor<?>[] ctors = LinkedListDeque61B.class.getConstructors();
+        Constructor<?>[] ctors = LinkedListDeque61BA.class.getConstructors();
         assertWithMessage("Found more than one constructor in LinkedListDeque61B").that(ctors).hasLength(1);
         assertWithMessage("LinkedListDeque61B constructor has more than zero arguments").that(ctors[0].getParameterCount()).isEqualTo(0);
     }
