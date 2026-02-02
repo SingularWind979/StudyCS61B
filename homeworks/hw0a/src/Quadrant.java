@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 /**
- * Find the quadrant of a point in the Cartesian coordinate system.
+ * Finds the quadrant of a point in the Cartesian coordinate system.
  *
- * @author SoingularWind
+ * @author SingularWind
  **/
 public class Quadrant {
     public static void main(String[] args) {
@@ -17,7 +17,7 @@ public class Quadrant {
     }
 
     /**
-     * Find the quadrant of a point in the Cartesian coordinate system.
+     * Finds the quadrant of a point in the Cartesian coordinate system.
      *
      * @param x the x-coordinate of the point
      * @param y the y-coordinate of the point
