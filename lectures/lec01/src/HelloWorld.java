@@ -1,5 +1,5 @@
 /**
- * HelloWorld
+ * Prints "Hello, World!" to the console.
  *
  * @author SingularWind
  */
