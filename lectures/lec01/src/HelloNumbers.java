@@ -11,6 +11,7 @@ public class HelloNumbers {
         System.out.print("Enter an integer: ");
         return input.nextInt();
     }
+    
     public static void main(String[] args) {
         int lowerBound = 0;
         int upperBound = input();
