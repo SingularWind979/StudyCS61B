@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 /**
- * Print the characters of a string along with their indices.
+ * Prints the characters of a string along with their indices.
  *
- * @author SoingularWind
+ * @author SingularWind
  **/
 public class PrintIndexed {
     public static void main(String[] args) {
