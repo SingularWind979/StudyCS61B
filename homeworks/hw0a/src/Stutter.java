@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 /**
- * Stutter the characters of a string.
+ * Stutters the characters of a string.
  *
  * @author SingularWind
  */
@@ -14,7 +14,7 @@ public class Stutter {
     }
 
     /**
-     * Stutter the characters of a string.
+     * Stutters the characters of a string.
      *
      * @param str the string to stutter
      * @return the stuttered string
