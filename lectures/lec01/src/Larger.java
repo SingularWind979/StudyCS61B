@@ -11,6 +11,7 @@ public class Larger {
         System.out.print("Enter an integer: ");
         return sc.nextInt();
     }
+    
     public static int larger(int x, int y) {
         return Math.max(x, y);
     }
