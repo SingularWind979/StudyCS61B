@@ -14,7 +14,7 @@ public class PrintIndexed {
     }
 
     /**
-     * Print the characters of a string along with their indices.
+     * Prints the characters of a string along with their indices.
      *
      * @param str the string to print
      */
