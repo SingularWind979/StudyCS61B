@@ -3,11 +3,11 @@
  *
  * @author SingularWind
  */
-@SuppressWarnings("SameParameterValue")
+@SuppressWarnings("FieldMayBeFinal")
 public class IntList {
-    int data;                       // data stored in this node
-    IntList next;                   // reference to the next node in the list
-    static final int LIMIT = 1000;  // threshold for using iterative method
+    private int data;                       // data stored in this node
+    private IntList next;                   // reference to the next node in the list
+    public static final int LIMIT = 1000;   // threshold for using iterative method
 
     /**
      * Constructs a new IntList node with the specified data and next node.
@@ -70,14 +70,14 @@ public class IntList {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("IntList(");
+        sb.append("IntList[");
         for (IntList p = this; p != null; p = p.next) {
             sb.append(p.data);
             if (p.next != null) {
-                sb.append(", ");
+                sb.append("->");
             }
         }
-        sb.append(")");
+        sb.append("]");
         return sb.toString();
     }
 
@@ -86,7 +86,7 @@ public class IntList {
      *
      * @return the number of elements in this list
      */
-    private int recursiveSize() {
+    int recursiveSize() {
         if (next == null) {
             return 1;
         }
@@ -98,7 +98,7 @@ public class IntList {
      *
      * @return the number of elements in this list
      */
-    private int iterativeSize() {
+    int iterativeSize() {
         int size = 0;
         for (IntList p = this; p != null; p = p.next) {
             size++;
@@ -112,7 +112,7 @@ public class IntList {
      * @param index the index of the element to return
      * @return the element at the specified position in this list
      */
-    private IntList recursiveGet(int index) {
+    IntList recursiveGet(int index) {
         if (index == 0) {
             return this;
         }
@@ -125,7 +125,7 @@ public class IntList {
      * @param index the index of the element to return
      * @return the element at the specified position in this list
      */
-    private IntList iterativeGet(int index) {
+    IntList iterativeGet(int index) {
         IntList p = this;
         for (int i = 0; i < index; i++) {
             p = p.next;
@@ -140,7 +140,7 @@ public class IntList {
      * @param x the value to be added to each element in the list
      * @return a new list with each element incremented by x
      */
-    private static IntList creativeIncrement(IntList L, int x) {
+    static IntList creativeIncrement(IntList L, int x) {
         if (L == null) {
             return null;
         }
@@ -153,36 +153,10 @@ public class IntList {
      * @param L the list to be incremented
      * @param x the value to be added to each element in the list
      */
-    private static IntList destructiveIncrement(IntList L, int x) {
-        for(IntList p = L; p != null; p = p.next) {
+    static IntList destructiveIncrement(IntList L, int x) {
+        for (IntList p = L; p != null; p = p.next) {
             p.data += x;
         }
         return L;
-    }
-
-    // Main method to test the IntList class.
-    public static void main(String[] args) {
-        // create a list: 1->2->3->null
-        IntList L = new IntList(1, new IntList(2, new IntList(3, null)));
-
-        // test size methods
-        System.out.println("Size: " + L.size()); // 3
-        System.out.println("Recursive size: " + L.recursiveSize());
-        System.out.println("Iterative size: " + L.iterativeSize());
-
-        // test get methods
-        System.out.println("Get(1): " + L.get(1)); // 2
-        System.out.println("Recursive get(1): " + L.recursiveGet(1));
-        System.out.println("Iterative get(1): " + L.iterativeGet(1));
-
-        // test increment methods
-        IntList L0 = increment(L, 1);
-        System.out.println("After increment (1): " + L0);
-        IntList L1 = creativeIncrement(L, 1);
-        System.out.println("After creative increment (1): " + L1);
-        System.out.println("Original list: " + L);
-        IntList L2 = destructiveIncrement(L, 2);
-        System.out.println("After destructive increment (2): " + L2);
-        System.out.println("Original list: " + L);
     }
 }
