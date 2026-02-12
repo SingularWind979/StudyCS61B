@@ -1,4 +1,9 @@
-@SuppressWarnings("FieldMayBeFinal")
+/**
+ * Singly-linked list implementation with a sentinel.
+ * @param <T> the type of elements stored in the list
+ *
+ * @author SingularWind
+ */
 public class SLList<T> {
     /**
      * Node class to store the data and the next node.
@@ -14,8 +19,8 @@ public class SLList<T> {
         }
     }
 
-    private Node<T> sentinel;   // sentinel node
-    private int size;           // number of real nodes in the list
+    private final Node<T> sentinel;     // sentinel node
+    private int size;                   // number of real nodes in the list
 
     /**
      * Constructs an empty SLList.
@@ -23,54 +28,6 @@ public class SLList<T> {
     public SLList() {
         sentinel = new Node<>(null, null);
         size = 0;
-    }
-
-    /**
-     * Adds the specified element to the beginning of this list.
-     *
-     * @param data the element to add
-     */
-    public void addFirst(T data) {
-        Node<T> oldFirst = getFirstNode();
-        sentinel.next = new Node<>(data, oldFirst);
-        size++;
-    }
-
-    /**
-     * Returns the first element in this list.
-     *
-     * @return the first element in this list
-     * @throws RuntimeException if the list is empty
-     */
-    public T getFirst() {
-        if (size == 0) {
-            throw new RuntimeException("List is empty");
-        }
-        return getFirstNode().data;
-    }
-
-    /**
-     * Adds the specified element to the end of this list.
-     *
-     * @param data the element to add
-     */
-    public void addLast(T data) {
-        Node<T> oldLast = getLastNode();
-        oldLast.next = new Node<>(data, null);
-        size++;
-    }
-
-    /**
-     * Returns the last element in this list.
-     *
-     * @return the last element in this list
-     * @throws RuntimeException if the list is empty
-     */
-    public T getLast() {
-        if (size == 0) {
-            throw new RuntimeException("List is empty");
-        }
-        return getLastNode().data;
     }
 
     /**
@@ -92,6 +49,54 @@ public class SLList<T> {
     }
 
     /**
+     * Adds the specified element to the beginning of this list.
+     *
+     * @param data the element to add
+     */
+    public void addFirst(T data) {
+        Node<T> oldFirst = getFirstNode();
+        sentinel.next = new Node<>(data, oldFirst);
+        size++;
+    }
+
+    /**
+     * Adds the specified element to the end of this list.
+     *
+     * @param data the element to add
+     */
+    public void addLast(T data) {
+        Node<T> oldLast = getLastNode();
+        oldLast.next = new Node<>(data, null);
+        size++;
+    }
+
+    /**
+     * Returns the first element in this list.
+     *
+     * @return the first element in this list
+     * @throws RuntimeException if the list is empty
+     */
+    public T getFirst() {
+        if (size == 0) {
+            throw new RuntimeException("List is empty");
+        }
+        return getFirstNode().data;
+    }
+
+    /**
+     * Returns the last element in this list.
+     *
+     * @return the last element in this list
+     * @throws RuntimeException if the list is empty
+     */
+    public T getLast() {
+        if (size == 0) {
+            throw new RuntimeException("List is empty");
+        }
+        return getLastNode().data;
+    }
+
+    /**
      * Returns a string representation of this list.
      *
      * @return a string representation of this list
@@ -103,17 +108,27 @@ public class SLList<T> {
         for (Node<T> p = sentinel.next; p != null; p = p.next) {
             sb.append(p.data);
             if (p.next != null) {
-                sb.append("->");
+                sb.append(" -> ");
             }
         }
         sb.append("]");
         return sb.toString();
     }
 
+    /**
+     * Returns the first node in this list.
+     *
+     * @return the first node in this list
+     */
     private Node<T> getFirstNode() {
         return sentinel.next;
     }
 
+    /**
+     * Returns the last node in this list.
+     *
+     * @return the last node in this list
+     */
     private Node<T> getLastNode() {
         Node<T> p = sentinel;
         while (p.next != null) {
