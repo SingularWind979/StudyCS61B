@@ -104,7 +104,6 @@ public class Model {
      */
     public boolean emptySpaceExists() {
         int size = size();
-
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (board.tile(i, j) == null) {
@@ -121,7 +120,15 @@ public class Model {
      * Note that given a Tile object t, we get its value with t.value().
      */
     public boolean maxTileExists() {
-        // TODO: Task 3. Fill in this function.
+        int size = size();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                Tile tile = board.tile(i, j);
+                if (tile != null && tile.value() == MAX_PIECE) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
