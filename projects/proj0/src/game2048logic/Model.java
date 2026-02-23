@@ -181,12 +181,12 @@ public class Model {
         int myValue = currTile.value();
         int targetY = y;
 
-        // TODO: Task 10. Fill in this function.
         // Move through empty tiles.
         while (targetY + 1 < size()
             && board.tile(x, targetY + 1) == null) {
             targetY++;
         }
+
         // Merge with the same value not merged tile.
         if (targetY + 1 < size()
             && board.tile(x, targetY + 1).value() == myValue
@@ -197,6 +197,11 @@ public class Model {
         // Move the tile to the target Y.
         if (targetY != y) {
             board.move(x, targetY, currTile);
+        }
+
+        // Update the score.
+        if (board.tile(x, targetY).value() != myValue) {
+            score += myValue * 2;
         }
     }
 
@@ -229,9 +234,7 @@ public class Model {
      */
     public void tilt(Side side) {
         board.setViewingPerspective(side);
-        for (int i = 0; i < size(); i++) {
-            tiltColumn(i);
-        }
+        tilt();
         board.setViewingPerspective(Side.NORTH);
     }
 
