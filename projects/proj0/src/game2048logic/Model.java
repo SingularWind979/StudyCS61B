@@ -195,7 +195,9 @@ public class Model {
         }
 
         // Move the tile to the target Y.
-        board.move(x, targetY, currTile);
+        if (targetY != y) {
+            board.move(x, targetY, currTile);
+        }
     }
 
     /**
@@ -213,8 +215,14 @@ public class Model {
         }
     }
 
+    /**
+     * Tilts every tile of the board toward SIDE.
+     */
     public void tilt(Side side) {
-        // TODO: Tasks 8 and 9. Fill in this function.
+        // TODO: Tasks 9. Fill in this function.
+        for (int i = 0; i < size(); i++) {
+            tiltColumn(i);
+        }
     }
 
     /** Tilts every column of the board toward SIDE. */
