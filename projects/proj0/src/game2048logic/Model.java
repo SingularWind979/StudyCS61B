@@ -139,7 +139,35 @@ public class Model {
      * 2. There are two adjacent tiles with the same value.
      */
     public boolean atLeastOneMoveExists() {
-        // TODO: Fill in this function.
+        // 1. There is at least one empty space on the board.
+        if (emptySpaceExists()) {
+            return true;
+        }
+
+        // 2. There are two adjacent tiles with the same value.
+        int size  = size();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                Tile tile = board.tile(i, j);
+
+                // Check the tile to the up.
+                if (j + 1 < size) {
+                    Tile tileU = board.tile(i, j + 1);
+                    if (tile.value() == tileU.value()) {
+                        return true;
+                    }
+                }
+
+                // Check the tile to the right.
+                if (i + 1 < size) {
+                    Tile tileR = board.tile(i + 1, j);
+                    if (tile.value() == tileR.value()) {
+                        return true;
+                    }
+                }
+            }
+        }
+
         return false;
     }
 
