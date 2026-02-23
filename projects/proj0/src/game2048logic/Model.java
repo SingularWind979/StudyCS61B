@@ -181,9 +181,16 @@ public class Model {
         int myValue = currTile.value();
         int targetY = y;
 
-        // TODO: Tasks 6, and 10. Fill in this function.
-        // Find the target Y to move.
-        while (targetY + 1 < size() && board.tile(x, targetY + 1) == null) {
+        // TODO: Task 10. Fill in this function.
+        // Move through empty tiles.
+        while (targetY + 1 < size()
+            && board.tile(x, targetY + 1) == null) {
+            targetY++;
+        }
+        // Merge with the same value not merged tile.
+        if (targetY + 1 < size()
+            && board.tile(x, targetY + 1).value() == myValue
+            && !board.tile(x, targetY + 1).wasMerged()) {
             targetY++;
         }
 
