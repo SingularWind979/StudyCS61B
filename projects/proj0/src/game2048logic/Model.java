@@ -216,16 +216,28 @@ public class Model {
     }
 
     /**
-     * Tilts every tile of the board toward SIDE.
+     * Tilts every tile of the board toward NORTH (default).
      */
-    public void tilt(Side side) {
-        // TODO: Tasks 9. Fill in this function.
+    public void tilt() {
         for (int i = 0; i < size(); i++) {
             tiltColumn(i);
         }
     }
 
-    /** Tilts every column of the board toward SIDE. */
+    /**
+     * Tilts every tile of the board toward SIDE.
+     */
+    public void tilt(Side side) {
+        board.setViewingPerspective(side);
+        for (int i = 0; i < size(); i++) {
+            tiltColumn(i);
+        }
+        board.setViewingPerspective(Side.NORTH);
+    }
+
+    /**
+     * Tilts every column of the board toward SIDE.
+     */
     public void tiltWrapper(Side side) {
         board.resetMerged();
         tilt(side);
