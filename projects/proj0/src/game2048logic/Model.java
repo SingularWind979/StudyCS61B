@@ -18,12 +18,6 @@ public class Model {
     /** Current score. */
     private int score;
 
-    /*
-     * Coordinate System:
-     * column x, row y of the board will correspond to board.tile(x, y).
-     * ( x = 0, y = 0 is the lower-left corner of the board).
-     */
-
     /** Largest piece value. */
     public static final int MAX_PIECE = 2048;
 
