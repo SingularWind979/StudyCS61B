@@ -14,7 +14,12 @@ import java.awt.event.KeyEvent;
  * @author P. N. Hilfinger
  */
 class GUI extends TopLevel {
-    /** A new window with given TITLE providing a view of MODEL. */
+    /**
+     * A new window with given TITLE providing a view of MODEL.
+     *
+     * @param title Title of the window.
+     * @param model Model to be displayed.
+     */
     GUI(String title, Model model) {
         super(title, true);
         addMenuButton("Game->New", this::newGame);
@@ -36,13 +41,21 @@ class GUI extends TopLevel {
         setScore(0);
     }
 
-    /** Response to "Quit" button click. */
+    /**
+     * Response to "Quit" button click.
+     *
+     * @param dummy Unused parameter.
+     */
     private void quit(String dummy) {
         _pendingKeys.offer("Quit");
         _widget.requestFocusInWindow();
     }
 
-    /** Response to "New Game" button click. */
+    /**
+     * Response to "New Game" button click.
+     *
+     * @param dummy Unused parameter.
+     */
     private void newGame(String dummy) {
         _pendingKeys.offer("New Game");
         _widget.requestFocusInWindow();
@@ -51,6 +64,9 @@ class GUI extends TopLevel {
     /**
      * Respond to the user pressing key E
      * by queuing the key on our queue of pending keys.
+     *
+     * @param unused Unused parameter.
+     * @param e Key event.
      */
     private void keyPressed(String unused, KeyEvent e) {
         _pendingKeys.offer(e.getKeyCode() + "");
@@ -62,6 +78,8 @@ class GUI extends TopLevel {
      * as the key codes of the character pressed.
      * In addition, menu-button clicks result in
      * the messages "Quit" or "New Game".
+     *
+     * @return Next pending key event.
      */
     private String readKey() {
         try {
@@ -73,6 +91,8 @@ class GUI extends TopLevel {
 
     /**
      * Return which direction arrow was pressed.
+     *
+     * @return Direction arrow pressed.
      */
     String getKey() {
         String command = readKey();
@@ -89,6 +109,8 @@ class GUI extends TopLevel {
 
     /**
      * Set the current score being displayed to SCORE.
+     *
+     * @param score Score to be displayed.
      */
     private void setScore(int score) {
         setLabel("Score", String.format("Score: %6d", score));

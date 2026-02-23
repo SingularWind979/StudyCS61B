@@ -39,6 +39,11 @@ public enum Side {
      * increases the row by DROW and the column by DCOL.
      * (COL0, ROW0) are the row and column of the lower-left square
      * when sitting at the board facing towards this Side.
+     *
+     * @param col0 Column of lower-left square.
+     * @param row0 Row of lower-left square.
+     * @param dcol Column delta.
+     * @param drow Row delta.
      */
     Side(int col0, int row0, int dcol, int drow) {
         this._row0 = row0;
@@ -51,6 +56,11 @@ public enum Side {
      * Return the standard x-coordinate
      * for square (x, y) on a board
      * of size SIZE oriented with this Side on top.
+     *
+     * @param x Column of square.
+     * @param y Row of square.
+     * @param size Size of board.
+     * @return Standard x-coordinate of square (x, y).
      */
     int x(int x, int y, int size) {
         return _col0 * (size - 1) + x * _drow + y * _dcol;
@@ -60,6 +70,11 @@ public enum Side {
      * Return the standard y-coordinate
      * for square (x, y) on a board
      * of size SIZE oriented with this Side on top.
+     *
+     * @param x Column of square.
+     * @param y Row of square.
+     * @param size Size of board.
+     * @return Standard y-coordinate of square (x, y).
      */
     int y(int x, int y, int size) {
         return _row0 * (size - 1) - x * _dcol + y * _drow;
@@ -68,6 +83,6 @@ public enum Side {
     /**
      * Parameters describing this Side,
      * as documented in the comment at the start of this class.
-     * */
+     */
     private final int _row0, _col0, _drow, _dcol;
 }

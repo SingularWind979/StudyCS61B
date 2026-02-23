@@ -17,6 +17,11 @@ class Game {
      * Controller for a game represented by MODEL,
      * using GUI as the source of key inputs.
      * Uses SEED as the random seed.
+     *
+     * @param model Game model.
+     * @param gui Game GUI.
+     * @param tile2p Probability of a new tile being a 2-tile.
+     * @param seed Random seed.
      */
     public Game(Model model, GUI gui, double tile2p, long seed) {
         _model = model;
@@ -33,6 +38,8 @@ class Game {
 
     /**
      * Return true iff we have not received a Quit command.
+     *
+     * @return True if the game is still playing.
      */
     boolean playing() {
         return _playing;
@@ -43,6 +50,8 @@ class Game {
      * until receiving a quit or new-game request.
      * Update the viewer with each added tile
      * or change in the board from tilting.
+     *
+     * @param hotStart True if the game is started with a hot start.
      */
     void playGame(boolean hotStart) {
 
@@ -106,6 +115,11 @@ class Game {
     /**
      * Return the side indicated by KEY
      * ("Up", "Down", "Left", or "Right").
+     *
+     * @param key Key pressed.
+     *             One of "Up", "Down", "Left", "Right",
+     *             or the corresponding arrow keys.
+     * @return Side indicated by KEY.
      */
     private Side keyToSide(String key) {
         return switch (key) {
@@ -122,6 +136,8 @@ class Game {
      * using our source's tile input
      * until finding one that fits on the current board.
      * Assumes there is at least one empty square on the board.
+     *
+     * @return Valid new tile.
      */
     private Tile getValidNewTile() {
         while (true) {
@@ -137,6 +153,9 @@ class Game {
      * with either value of 2 with probability _probOf2
      * or a value of 4 with probability (1 - _probOf2)
      * in a board with size SIZE.
+     *
+     * @param size Size of the board.
+     * @return Randomly positioned tile.
      */
     private Tile generateNewTile(int size) {
         int c = _random.nextInt(size), r = _random.nextInt(size);

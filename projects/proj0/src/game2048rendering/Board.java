@@ -18,6 +18,8 @@ public class Board {
     /**
      * Shifts the view of the board
      * such that the board behaves as if side S is north.
+     *
+     * @param s Side to set as north.
      */
     public void setViewingPerspective(Side s) {
         _viewPerspective = s;
@@ -29,7 +31,9 @@ public class Board {
      * (0 is null)
      * with a current score of SCORE
      * and the viewing perspective set to north.
-     * */
+     *
+     * @param rawValues Raw values of the board.
+     */
     public Board(int[][] rawValues) {
         int size = rawValues.length;
         _values = new Tile[size][size];
@@ -50,6 +54,8 @@ public class Board {
 
     /**
      * Returns the size of the board.
+     *
+     * @return Size of the board.
      */
     public int size() {
         return _values.length;
@@ -59,6 +65,11 @@ public class Board {
      * Return the current Tile at (x, y),
      * when sitting with the board oriented
      * so that SIDE is at the top (farthest) from you.
+     *
+     * @param x X coordinate of the tile.
+     * @param y Y coordinate of the tile.
+     * @param side Side to set as north.
+     * @return Tile at (x, y).
      */
     private Tile vtile(int x, int y, Side side) {
         return _values[side.x(x, y, size())][side.y(x, y, size())];
@@ -68,19 +79,29 @@ public class Board {
      * Return the current Tile at (x, y),
      * where 0 <= x < size(), 0 <= y < size().
      * Returns null if there is no tile there.
+     *
+     * @param x X coordinate of the tile.
+     * @param y Y coordinate of the tile.
+     * @return Tile at (x, y).
      */
     public Tile tile(int x, int y) {
         return vtile(x, y, _viewPerspective);
     }
 
-    /** Clear the board to empty and reset the score. */
+    /**
+     * Clear the board to empty and reset the score.
+     */
     public void clear() {
         for (Tile[] column : _values) {
             Arrays.fill(column, null);
         }
     }
 
-    /** Adds the tile T to the board */
+    /**
+     * Adds the tile T to the board.
+     *
+     * @param t Tile to add.
+     */
     public void addTile(Tile t) {
         _values[t.x()][t.y()] = t;
     }
@@ -91,6 +112,10 @@ public class Board {
      * with respect to the current viewPerspective.
      * (0, 0) is bottom-left corner.
      * If the move is a merge, sets the tile's merged status to true.
+     *
+     * @param x X coordinate of the tile.
+     * @param y Y coordinate of the tile.
+     * @param tile Tile to move.
      */
     public void move(int x, int y, Tile tile) {
         int px = _viewPerspective.x(x, y, size());
@@ -101,8 +126,8 @@ public class Board {
 
         /*
          * Move or merge the tile.
-         * It is important to call setNext on the old tile(s)
-         * so they can be animated into position
+         * It is important to call setNext on the old tile(s),
+         * so they can be animated into position.
          */
         Tile next;
         if (tile1 == null) {
@@ -120,7 +145,9 @@ public class Board {
         _values[px][py] = next;
     }
 
-    /** Resets all the merged booleans to false for every tile on the board. */
+    /**
+     * Resets all the merged booleans to false for every tile on the board.
+     */
     public void resetMerged() {
         for (int x = 0; x < size(); x += 1) {
             for (int y = 0; y < size(); y += 1) {
@@ -131,7 +158,11 @@ public class Board {
         }
     }
 
-    /** Returns the board as a string, used for debugging. */
+    /**
+     * Returns the board as a string, used for debugging.
+     *
+     * @return String representation of the board.
+     */
     @Override
     public String toString() {
         Formatter out = new Formatter();

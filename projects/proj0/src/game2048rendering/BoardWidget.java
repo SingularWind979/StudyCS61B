@@ -93,8 +93,12 @@ class BoardWidget extends Pad {
         }
     }
 
-    /** A graphical representation of a 2048 board
-     * with SIZE rows and columns. */
+    /**
+     * A graphical representation of a 2048 board
+     * with SIZE rows and columns.
+     *
+     * @param size Size of the board.
+     */
     BoardWidget(int size) {
         _size = size;
         _boardSide = size * TILE_SIDE_SEP + TILE_SEP;
@@ -102,7 +106,11 @@ class BoardWidget extends Pad {
         setPreferredSize(_boardSide, _boardSide);
     }
 
-    /** Render board on G. */
+    /**
+     * Render board on G.
+     *
+     * @param g Graphics context.
+     */
     @Override
     public synchronized void paintComponent(Graphics2D g) {
         g.setColor(EMPTY_SQUARE_COLOR);
@@ -126,7 +134,11 @@ class BoardWidget extends Pad {
         }
     }
 
-    /** Render TILE on G. */
+    /** Render TILE on G.
+     *
+     * @param g Graphics context.
+     * @param tile Tile to render.
+     */
     private void render(Graphics2D g, Tile tile) {
         int col0 = tile.x(),
             row0 = tile.y(),
@@ -173,7 +185,12 @@ class BoardWidget extends Pad {
 
     }
 
-    /** Return the list of all Tiles in MODEL. */
+    /**
+     * Return the list of all Tiles in MODEL.
+     *
+     * @param model Model to get tiles from.
+     * @return List of all tiles in MODEL.
+     */
     private ArrayList<Tile> modelTiles(Model model) {
         ArrayList<Tile> result = new ArrayList<>();
         for (int col = 0; col < model.size(); col += 1) {
@@ -191,6 +208,8 @@ class BoardWidget extends Pad {
      * Return the list of all tiles in NEXT TILES
      * that are newly created
      * or the result of merging of current tiles.
+     *
+     * @param nextTiles List of tiles in next state.
      */
     private ArrayList<Tile> newTiles(ArrayList<Tile> nextTiles) {
         ArrayList<Tile> bloomers = new ArrayList<>(nextTiles);
@@ -215,6 +234,8 @@ class BoardWidget extends Pad {
 
     /**
      * Create the blooming effect on tiles in BLOOMING TILES.
+     *
+     * @param bloomingTiles List of tiles to bloom.
      */
     private void doBlooming(ArrayList<Tile> bloomingTiles) {
         _bloomingTiles = bloomingTiles;
@@ -239,6 +260,8 @@ class BoardWidget extends Pad {
      * and save a new set of tiles from MODEL,
      * which is assumed to reflect the next state of the tiles
      * after the completion of all movement.
+     *
+     * @param model Model to update from.
      */
     synchronized void update(Model model) {
         float dist;
