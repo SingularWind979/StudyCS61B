@@ -114,9 +114,8 @@ public class Model {
      * Note that given a Tile object t, we get its value with t.value().
      */
     public boolean maxTileExists() {
-        int size = size();
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < size(); i++) {
+            for (int j = 0; j < size(); j++) {
                 Tile tile = board.tile(i, j);
                 if (tile != null && tile.value() == MAX_PIECE) {
                     return true;
@@ -139,13 +138,12 @@ public class Model {
         }
 
         // 2. There are two adjacent tiles with the same value.
-        int size  = size();
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < size(); i++) {
+            for (int j = 0; j < size(); j++) {
                 Tile tile = board.tile(i, j);
 
                 // Check the tile to the up.
-                if (j + 1 < size) {
+                if (j + 1 < size()) {
                     Tile tileU = board.tile(i, j + 1);
                     if (tile.value() == tileU.value()) {
                         return true;
@@ -153,7 +151,7 @@ public class Model {
                 }
 
                 // Check the tile to the right.
-                if (i + 1 < size) {
+                if (i + 1 < size()) {
                     Tile tileR = board.tile(i + 1, j);
                     if (tile.value() == tileR.value()) {
                         return true;
@@ -183,7 +181,14 @@ public class Model {
         int myValue = currTile.value();
         int targetY = y;
 
-        // TODO: Tasks 5, 6, and 10. Fill in this function.
+        // TODO: Tasks 6, and 10. Fill in this function.
+        // Find the target Y to move.
+        while (targetY + 1 < size() && board.tile(x, targetY + 1) == null) {
+            targetY++;
+        }
+
+        // Move the tile to the target Y.
+        board.move(x, targetY, currTile);
     }
 
     /**
