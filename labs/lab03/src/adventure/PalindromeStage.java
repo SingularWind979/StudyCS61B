@@ -1,6 +1,6 @@
 package adventure;
 
-import common.IntList;
+import common.IntList1;
 import edu.princeton.cs.algs4.In;
 
 import java.util.Map;
@@ -39,8 +39,8 @@ public class PalindromeStage implements AdventureStage {
                 input = this.in.readLine();
             }
 
-            IntList numLst = digitsToIntList(input);
-            IntList reversedLst = reverseList(numLst);
+            IntList1 numLst = digitsToIntList(input);
+            IntList1 reversedLst = reverseList(numLst);
 
             if (numLst.equals(reversedLst)) {
                 System.out.println("Wow, nice room number!");
@@ -62,10 +62,10 @@ public class PalindromeStage implements AdventureStage {
     }
 
     /** Returns a new IntList with the contents of the original IntList in reverse order.*/
-    private static IntList reverseList(IntList l) {
-        IntList reversed = null;
+    private static IntList1 reverseList(IntList1 l) {
+        IntList1 reversed = null;
         while (l != null) {
-            reversed = new IntList(l.first, reversed);
+            reversed = new IntList1(l.first, reversed);
             l = l.rest;
         }
         return reversed;
@@ -75,12 +75,12 @@ public class PalindromeStage implements AdventureStage {
      * Given an input string of digits, converts it into an IntList of single-digit ints.
      * For example, the string "606" is converted to 6 -> 0 -> 6.
      */
-    private static IntList digitsToIntList(String s) {
+    private static IntList1 digitsToIntList(String s) {
         int[] a = new int[s.length()];
         for (int i = 0; i < s.length(); i++) {
             a[i] = Character.getNumericValue(s.charAt(i));
         }
-        return IntList.of(a);
+        return IntList1.of(a);
     }
 
 }

@@ -1,11 +1,11 @@
 package common;
 
 @SuppressWarnings("unused")
-public class IntList {
+public class IntList1 {
     public int first;
-    public IntList rest;
+    public IntList1 rest;
 
-    public IntList(int f, IntList r) {
+    public IntList1(int f, IntList1 r) {
         first = f;
         rest = r;
     }
@@ -29,17 +29,17 @@ public class IntList {
      * You can pass in any number of arguments to IntList.of and it will work:
      * IntList mySmallerList = IntList.of(1, 4, 9);
      */
-    public static IntList of(int... argList) {
+    public static IntList1 of(int... argList) {
         if (argList.length == 0) {
             return null;
         }
         int[] restList = new int[argList.length - 1];
         System.arraycopy(argList, 1, restList, 0, argList.length - 1);
-        return new IntList(argList[0], IntList.of(restList));
+        return new IntList1(argList[0], IntList1.of(restList));
     }
 
     public boolean equals(Object other) {
-        if (other instanceof IntList oL) {
+        if (other instanceof IntList1 oL) {
             if (first != oL.first) {
                 return false;
             } else if (rest == null && oL.rest == null) {

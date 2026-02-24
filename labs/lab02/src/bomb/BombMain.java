@@ -1,6 +1,6 @@
 package bomb;
 
-import common.IntList;
+import common.IntList1;
 
 public class BombMain {
     public static void answers(String[] args) {
@@ -14,7 +14,7 @@ public class BombMain {
             b.phase0("39291226");
         }
         if (phase >= 1) {
-            b.phase1(IntList.of(0, 9, 3, 0, 8));
+            b.phase1(IntList1.of(0, 9, 3, 0, 8));
         }
         if (phase >= 2) {
             b.phase2("-81201430");
