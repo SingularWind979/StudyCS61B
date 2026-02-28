@@ -31,6 +31,30 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
     }
 
     /**
+     * Returns the element at the front of the deque,
+     * if it exists.
+     * Does not alter the deque.
+     *
+     * @return element at the front of the deque, otherwise {@code null}.
+     */
+    @Override
+    public T getFirst() {
+        return getFirstNode().item;
+    }
+
+    /**
+     * Returns the element at the back of the deque,
+     * if it exists.
+     * Does not alter the deque.
+     *
+     * @return element at the back of the deque, otherwise {@code null}.
+     */
+    @Override
+    public T getLast() {
+        return getLastNode().item;
+    }
+
+    /**
      * Add {@code x} to the front of the deque.
      * Assumes {@code x} is never null.
      *
@@ -38,7 +62,11 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public void addFirst(T x) {
-
+        Node oldFirst = getFirstNode();
+        Node newFirst = new Node(x, sentinel, oldFirst);
+        sentinel.next = newFirst;
+        oldFirst.prev = newFirst;
+        size++;
     }
 
     /**
@@ -49,7 +77,11 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public void addLast(T x) {
-
+        Node oldLast = getLastNode();
+        Node newLast = new Node(x, oldLast, sentinel);
+        sentinel.prev = newLast;
+        oldLast.next = newLast;
+        size++;
     }
 
     /**
@@ -136,6 +168,25 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
     @Override
     public T getRecursive(int index) {
         return null;
+    }
+
+    /**
+     * Returns the first node in the deque,
+     *
+     * @return the first node in the deque, otherwise {@code sentinel}.
+     */
+    private Node getFirstNode() {
+        return sentinel.next;
+    }
+
+
+    /**
+     * Returns the last node in the deque,
+     *
+     * @return the last node in the deque, otherwise {@code sentinel}.
+     */
+    private Node getLastNode() {
+        return sentinel.prev;
     }
 
     /**
