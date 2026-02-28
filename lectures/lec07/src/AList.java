@@ -5,7 +5,7 @@
  * @author SingularWind
  */
 @SuppressWarnings("unchecked")
-public class AList<T> {
+public class AList<T> implements List<T> {
     private static final int INIT_CAPACITY = 100;
     private static final int RESIZE_FACTOR = 2;
     private static final double MIN_USAGE_RATIO = 1.0 / RESIZE_FACTOR / RESIZE_FACTOR;
@@ -26,6 +26,7 @@ public class AList<T> {
      *
      * @return the number of elements in this list
      */
+    @Override
     public int size() {
         return size;
     }
@@ -35,17 +36,93 @@ public class AList<T> {
      *
      * @return true if this list contains no elements
      */
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
     /**
-     * Returns true if this list is full.
+     * Returns the item at the given index.
      *
-     * @return true if this list is full
+     * @param index the index of the item to return
+     * @return the item at the given index
      */
-    public boolean isFull() {
-        return size == items.length;
+    @Override
+    public T get(int index) {
+        // check if index is valid
+        checkIndex(index);
+
+        // return the item at the given index
+        return items[index];
+    }
+
+    /**
+     * Inserts the given item at the given index.
+     *
+     * @param item  the item to insert
+     * @param index the index at which to insert the item
+     */
+    @Override
+    public void insert(T item, int index) {
+        // insert can be at the end, which is out of index
+        if (index == size) {
+            addLast(item);
+            return;
+        }
+
+        // check if index is valid
+        checkIndex(index);
+
+        // resize if necessary
+        if (isFull()) {
+            resize(items.length * RESIZE_FACTOR);
+        }
+
+        // insert the item at the given index
+        System.arraycopy(items, index, items, index + 1, size - index);
+        items[index] = item;
+        size++;
+    }
+
+    /**
+     * Removes and returns the item at the given index.
+     *
+     * @param index the index of the item to remove
+     * @return the item at the given index
+     */
+    @Override
+    public T remove(int index) {
+        // check if the index is valid
+        checkIndex(index);
+
+        // check if remove is valid
+        if (isEmpty()) {
+            throw new IllegalStateException("List is empty");
+        }
+
+        // remove the item at the given index
+        T removed = items[index];
+        System.arraycopy(items, index + 1, items, index, size - index - 1);
+        items[size - 1] = null;
+        size--;
+
+        // resize if necessary
+        if (usageRatio() < MIN_USAGE_RATIO && items.length > INIT_CAPACITY) {
+            resize(items.length / RESIZE_FACTOR);
+        }
+
+        // return the removed item
+        return removed;
+    }
+
+    /**
+     * Returns the first item in the list.
+     *
+     * @return the first item in the list
+     */
+    @Override
+    public T getFirst() {
+        return get(0);
     }
 
     /**
@@ -53,14 +130,26 @@ public class AList<T> {
      *
      * @return the last element in this list
      */
+    @Override
     public T getLast() {
-        return items[size - 1];
+        return get(size - 1);
+    }
+
+    /**
+     * Adds the given item to the front of the list.
+     *
+     * @param item the item to add
+     */
+    @Override
+    public void addFirst(T item) {
+        insert(item, 0);
     }
 
     /**
      * Appends the specified element to the end of this list.
      * @param item the element to be appended to this list
      */
+    @Override
     public void addLast(T item) {
         if (isFull()) {
             resize(items.length * RESIZE_FACTOR);
@@ -69,20 +158,38 @@ public class AList<T> {
     }
 
     /**
+     * Removes and returns the first item in the list.
+     *
+     * @return the first item in the list
+     */
+    @Override
+    public T removeFirst() {
+        return remove(0);
+    }
+
+    /**
      * Removes the last element from this list.
      *
      * @return the last element from this list
      */
+    @Override
     public T removeLast() {
+        // check if the list is empty
         if (isEmpty()) {
             throw new IllegalStateException("List is empty");
         }
+
+        // remove the last item
         T last = items[size - 1];
         items[size - 1] = null;
         size--;
+
+        // resize if necessary
         if (usageRatio() < MIN_USAGE_RATIO && items.length > INIT_CAPACITY) {
             resize(items.length / RESIZE_FACTOR);
         }
+
+        // return the last item
         return last;
     }
 
@@ -104,5 +211,45 @@ public class AList<T> {
         T[] newItems = (T[]) new Object[newCapacity];
         System.arraycopy(items, 0, newItems, 0, size);
         items = newItems;
+    }
+
+    /**
+     * Returns true if this list is full.
+     *
+     * @return true if this list is full
+     */
+    private boolean isFull() {
+        return size == items.length;
+    }
+
+    /**
+     * Checks if the given index is valid for this list.
+     *
+     * @param index the index to check
+     * @throws IndexOutOfBoundsException if the index is not valid for this list
+     */
+    private void checkIndex(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for length " + size);
+        }
+    }
+
+    /**
+     * Returns a string representation of the list.
+     *
+     * @return a string representation of the list
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("AList[");
+        for (int i = 0; i < size; i++) {
+            sb.append(items[i]);
+            if (i < size - 1) {
+                sb.append(", ");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }
