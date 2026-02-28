@@ -14,19 +14,33 @@ import java.util.stream.Stream;
 import static com.google.common.truth.Truth.assertWithMessage;
 import static org.junit.jupiter.api.Assertions.fail;
 
-/** Tests that the LinkedListDeque61B class is structured correctly.
- *  @author Noah Adhikari */
+/**
+ * Tests that the LinkedListDeque61B class is structured correctly.
+ *
+ * @author Noah Adhikari
+ */
 public class PreconditionTest {
 
-    /** Returns the inner class of lld. Asserts there is exactly one inner class. */
+    /**
+     * Returns the inner class of lld.
+     * Asserts there is exactly one inner class.
+     *
+     * @return the inner class of lld
+     */
     private static Class<?> getLldInnerClass() {
         Class<?>[] innerClasses = LinkedListDeque61B.class.getDeclaredClasses();
         assertWithMessage("LinkedListDeque61B should have exactly one inner class").that(innerClasses).hasLength(1);
         return innerClasses[0];
     }
-
-    /** Returns a stream of all fields in c that are not primitives, synthetic, generic (Object),
-     *  or of type nodeClass. */
+    /**
+     * Returns a stream of all fields in c
+     * that are not primitives, synthetic, generic (Object), or of type nodeClass.
+     *
+     * @param c the class to get fields from
+     * @param nodeClass the class of the node to filter out
+     * @return a stream of all fields in c
+     * that are not primitives, synthetic, generic (Object), or of type nodeClass
+     */
     private static Stream<Field> getBadFields(Class<?> c, Class<?> nodeClass) {
         return Reflection.getFields(c)
                 .filter(f -> !(f.getType().isPrimitive()
@@ -46,11 +60,12 @@ public class PreconditionTest {
         Class<?>[] innerClasses = lldClass.getDeclaredClasses();
         assertWithMessage("LinkedListDeque61B should have exactly one inner class").that(innerClasses).hasLength(1);
         Class<?> nodeClass = innerClasses[0];
-        assertWithMessage("Inner class of LinkedListDeque61B should not be generic. " +
-                "(Use the generic type from the outer class?)")
+        assertWithMessage("Inner class of LinkedListDeque61B should not be generic. "
+                + "(Use the generic type from the outer class?)")
                 .that(nodeClass.getTypeParameters()).isEmpty();
 
-        // Convoluted check that value field of node is actually generic instead of Object
+        // Convoluted check that value field of node is actually generic
+        // instead of Object
         LinkedListDeque61B<Integer> lld = new LinkedListDeque61B<>();
         Field[] fields = lld.getClass().getDeclaredFields();
         for (Field f : fields) {
@@ -104,8 +119,9 @@ public class PreconditionTest {
                 .map(f -> f.getType().getSimpleName() + " " + f.getName())
                 .reduce("", (a, b) -> a + "\n\t" + b);
 
-        assertWithMessage("Found fields that are not nodes or primitives, or contain fields that are not nodes or " +
-                "primitives:" + msg).that(badFields).isEmpty();
+        assertWithMessage("Found fields that are not nodes or primitives, "
+                + "or contain fields that are not nodes or primitives:" + msg)
+                .that(badFields).isEmpty();
     }
 
     @Test
@@ -113,7 +129,9 @@ public class PreconditionTest {
     @DisplayName("LinkedListDeque61B has only an empty constructor")
     public void noNonTrivialConstructorsTest() {
         Constructor<?>[] ctors = LinkedListDeque61B.class.getConstructors();
-        assertWithMessage("Found more than one constructor in LinkedListDeque61B").that(ctors).hasLength(1);
-        assertWithMessage("LinkedListDeque61B constructor has more than zero arguments").that(ctors[0].getParameterCount()).isEqualTo(0);
+        assertWithMessage("Found more than one constructor in LinkedListDeque61B")
+                .that(ctors).hasLength(1);
+        assertWithMessage("LinkedListDeque61B constructor has more than zero arguments")
+                .that(ctors[0].getParameterCount()).isEqualTo(0);
     }
 }

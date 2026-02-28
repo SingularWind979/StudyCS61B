@@ -1,6 +1,35 @@
 import java.util.List;
 
+/**
+ * Represents a linked list deque implementation of a deque.
+ *
+ * @param <T> the type of items stored in the deque
+ * @author SingularWind
+ */
 public class LinkedListDeque61B<T> implements Deque61B<T> {
+    /**
+     * Represents a sentinel node in a doubly linked list.
+     * The first real node in the deque is {@code sentinel.next}.
+     * The last real node in the deque is {@code sentinel.prev}.
+     * */
+    private final Node sentinel;
+
+    /**
+     * Represents the current size of the deque.
+     * The amount of real nodes in the deque, not including the {@code sentinel} node.
+     */
+    private int size;
+
+    /**
+     * Constructs an empty linked list deque.
+     */
+    public LinkedListDeque61B() {
+        sentinel = new Node(null, null, null);
+        sentinel.prev = sentinel;
+        sentinel.next = sentinel;
+        size = 0;
+    }
+
     /**
      * Add {@code x} to the front of the deque.
      * Assumes {@code x} is never null.
@@ -107,5 +136,27 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
     @Override
     public T getRecursive(int index) {
         return null;
+    }
+
+    /**
+     * Represents a node in a doubly linked list.
+     */
+    private class Node {
+        T item;
+        Node prev;
+        Node next;
+
+        /**
+         * Constructs a new node with the given item and pointers.
+         *
+         * @param item the item to store in the node
+         * @param prev the previous node in the deque
+         * @param next the next node in the deque
+         */
+        public Node(T item, Node prev, Node next) {
+            this.item = item;
+            this.prev = prev;
+            this.next = next;
+        }
     }
 }
