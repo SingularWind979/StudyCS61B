@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -92,7 +93,13 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public List<T> toList() {
-        return List.of();
+        List<T> list = new ArrayList<>();
+
+        for (Node p = sentinel.next; p != sentinel; p = p.next) {
+            list.add(p.item);
+        }
+
+        return list;
     }
 
     /**
