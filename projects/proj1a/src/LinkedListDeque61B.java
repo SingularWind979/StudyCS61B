@@ -9,10 +9,11 @@ import java.util.List;
  */
 public class LinkedListDeque61B<T> implements Deque61B<T> {
     /**
-     * Represents a sentinel node in a doubly linked list.
+     * Represents a sentinel node in a doubly linked list, the boundary of the list.
      * The first real node in the deque is {@code sentinel.next}.
      * The last real node in the deque is {@code sentinel.prev}.
-     * */
+     * Index out of bound will return {@code sentinel} node, which is {@code null}.
+     */
     private final Node sentinel;
 
     /**
@@ -101,8 +102,8 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
     public List<T> toList() {
         List<T> list = new ArrayList<>();
 
-        for (Node p = sentinel.next; p != sentinel; p = p.next) {
-            list.add(p.item);
+        for (Node current = sentinel.next; current != sentinel; current = current.next) {
+            list.add(current.item);
         }
 
         return list;
@@ -136,7 +137,19 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public T removeFirst() {
-        return null;
+        if (isEmpty()) {
+            return null;
+        }
+
+        Node oldFirst = getFirstNode();
+        Node newFirst = oldFirst.next;
+
+        sentinel.next = newFirst;
+        newFirst.prev = sentinel;
+
+        size--;
+
+        return oldFirst.item;
     }
 
     /**
@@ -147,7 +160,19 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public T removeLast() {
-        return null;
+        if (isEmpty()) {
+            return null;
+        }
+
+        Node oldLast = getLastNode();
+        Node newLast = oldLast.prev;
+
+        sentinel.prev = newLast;
+        newLast.next = sentinel;
+
+        size--;
+
+        return oldLast.item;
     }
 
     /**
@@ -164,6 +189,11 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public T get(int index) {
+        // index is out of bounds
+        if (index < 0 || index >= size) {
+            return null;
+        }
+
         return getNode(index).item;
     }
 
@@ -215,28 +245,23 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      * @return node at {@code index} in the deque
      */
     private Node getNode(int index) {
-        // index is out of bounds
-        if (index < 0 || index >= size) {
-            return sentinel;
-        }
-
         // iterate to the node
-        Node p;
+        Node current;
 
         // iterate from the front or the back
         if (index < size / 2) {
-            p = sentinel.next;
+            current = sentinel.next;
             for (int i = 0; i < index; i++) {
-                p = p.next;
+                current = current.next;
             }
         } else {
-            p = sentinel.prev;
+            current = sentinel.prev;
             for (int i = size - 1; i > index; i--) {
-                p = p.prev;
+                current = current.prev;
             }
         }
 
-        return p;
+        return current;
     }
 
     /**

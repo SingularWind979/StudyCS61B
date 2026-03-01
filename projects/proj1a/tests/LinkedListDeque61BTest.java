@@ -7,7 +7,7 @@ import static com.google.common.truth.Truth.assertThat;
  */
 public class LinkedListDeque61BTest {
     @Test
-    public void testAddFirstBasic() {
+    public void testAddFirst() {
         Deque61B<String> lld1 = new LinkedListDeque61B<>();
 
         lld1.addFirst("back");      // ["back"]
@@ -18,7 +18,7 @@ public class LinkedListDeque61BTest {
     }
 
     @Test
-    public void testAddLastBasic() {
+    public void testAddLast() {
         Deque61B<String> lld1 = new LinkedListDeque61B<>();
 
         lld1.addLast("front");  // ["front"]
@@ -49,7 +49,7 @@ public class LinkedListDeque61BTest {
         assertThat(lld1.isEmpty()).isTrue();
 
         lld1.addLast(1);
-        lld1.addLast(2);
+        lld1.addLast(2);    // 1, 2
 
         assertThat(lld1.size()).isEqualTo(2);
         assertThat(lld1.isEmpty()).isFalse();
@@ -60,12 +60,17 @@ public class LinkedListDeque61BTest {
         Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
 
         lld1.addLast(1);
-        lld1.addLast(2);
+        lld1.addLast(2);    // 1,2
 
         assertThat(lld1.size()).isEqualTo(2);
         assertThat(lld1.isEmpty()).isFalse();
 
         lld1.removeLast();
+        lld1.removeLast();
+
+        assertThat(lld1.size()).isEqualTo(0);
+        assertThat(lld1.isEmpty()).isTrue();
+
         lld1.removeLast();
 
         assertThat(lld1.size()).isEqualTo(0);
@@ -212,5 +217,62 @@ public class LinkedListDeque61BTest {
         lld1.addLast(3);    // 1,2,3
 
         assertThat(lld1.getLast()).isEqualTo(3);
+    }
+
+    @Test
+    public void testRemoveFirst() {
+        Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
+
+        Integer removed = lld1.removeFirst();
+
+        assertThat(removed).isNull();
+
+        lld1.addLast(1);
+        lld1.addLast(2);
+        lld1.addLast(3);    // 1,2,3
+
+        removed = lld1.removeFirst();   // 2,3
+
+        assertThat(removed).isEqualTo(1);
+        assertThat(lld1.toList()).containsExactly(2, 3).inOrder();
+    }
+
+    @Test
+    public void testRemoveLast() {
+        Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
+
+        Integer removed = lld1.removeLast();
+
+        assertThat(removed).isNull();
+
+        lld1.addLast(1);
+        lld1.addLast(2);
+        lld1.addLast(3);    // 1,2,3
+
+        removed = lld1.removeLast();   // 1,2
+
+        assertThat(removed).isEqualTo(3);
+        assertThat(lld1.toList()).containsExactly(1, 2).inOrder();
+    }
+
+    @Test
+    public void testRemoveFirstAndRemoveLast() {
+        Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
+
+        lld1.addLast(1);
+        lld1.addLast(2);
+        lld1.addLast(3);
+        lld1.addLast(4);
+        lld1.addLast(5);    // 1,2,3,4,5
+
+        Integer removedFirst = lld1.removeFirst();  // 2,3,4,5
+
+        assertThat(removedFirst).isEqualTo(1);
+        assertThat(lld1.toList()).containsExactly(2, 3, 4, 5).inOrder();
+
+        Integer removedLast = lld1.removeLast();    // 2,3,4
+
+        assertThat(removedLast).isEqualTo(5);
+        assertThat(lld1.toList()).containsExactly(2, 3, 4).inOrder();
     }
 }
