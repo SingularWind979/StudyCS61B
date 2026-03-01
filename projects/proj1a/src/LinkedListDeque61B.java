@@ -179,13 +179,37 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public T getRecursive(int index) {
-        return null;
+        // index is out of bounds
+        if (index < 0 || index >= size) {
+            return null;
+        }
+
+        return getNodeRecursive(sentinel.next, index).item;
     }
 
     /**
-     * Returns the node at the given index in the deque,
-     * or {@code sentinel} if index is out of bounds.
-     * Remembers {@code sentinel.item} is null.
+     * Returns the element at the given index in the deque,
+     * or {@code null} if index is out of bounds.
+     * Does not alter the deque.
+     *
+     * @param current current node
+     * @param index index to get
+     * @return element at {@code index} in the deque,
+     * {@code null} if index is out of bounds.
+     */
+    private Node getNodeRecursive(Node current, int index) {
+        // base case
+        if (index == 0) {
+            return current;
+        }
+
+        // recursive case
+        return getNodeRecursive(current.next, index - 1);
+    }
+
+    /**
+     * Returns the node at the given index in the deque.
+     * Assumes {@code index} is valid.
      *
      * @param index index to get
      * @return node at {@code index} in the deque

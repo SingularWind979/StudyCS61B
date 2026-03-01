@@ -73,7 +73,7 @@ public class LinkedListDeque61BTest {
     }
 
     @Test
-    public void testGetBasic() {
+    public void testGet() {
         Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
 
         assertThat(lld1.get(0)).isNull();
@@ -109,13 +109,13 @@ public class LinkedListDeque61BTest {
         lld1.addLast(3);
         lld1.addLast(4);
         lld1.addLast(5);    // 1,2,3,4,5
+
         lld1.removeLast();
         lld1.removeFirst();
-        lld1.removeFirst();     // 2,3,4
+        lld1.removeFirst();     // 3,4
 
-        assertThat(lld1.get(0)).isEqualTo(2);
-        assertThat(lld1.get(1)).isEqualTo(3);
-        assertThat(lld1.get(2)).isEqualTo(4);
+        assertThat(lld1.get(0)).isEqualTo(3);
+        assertThat(lld1.get(1)).isEqualTo(4);
     }
 
     @Test
@@ -124,10 +124,68 @@ public class LinkedListDeque61BTest {
 
         lld1.addLast(1);
         lld1.addLast(2);
-        lld1.addLast(3);
+        lld1.addLast(3);    // 1,2,3
 
         assertThat(lld1.get(-1)).isNull();
         assertThat(lld1.get(100)).isNull();
+    }
+
+    @Test
+    public void testGetRecursiveBasic() {
+        Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
+
+        assertThat(lld1.get(0)).isNull();
+
+        lld1.addLast(1);
+        lld1.addLast(2);    // 1,2
+
+        assertThat(lld1.getRecursive(0)).isEqualTo(1);
+        assertThat(lld1.getRecursive(1)).isEqualTo(2);
+    }
+
+    @Test
+    public void testGetRecursiveWithAdd() {
+        Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
+
+        lld1.addLast(1);
+        lld1.addFirst(2);
+        lld1.addLast(3);
+        lld1.addLast(4);
+        lld1.addFirst(5);   // 5,2,1,3,4
+
+        assertThat(lld1.getRecursive(0)).isEqualTo(5);
+        assertThat(lld1.getRecursive(1)).isEqualTo(2);
+        assertThat(lld1.getRecursive(2)).isEqualTo(1);
+    }
+
+    @Test
+    public void testGetRecursiveWithRemove() {
+        Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
+
+        lld1.addLast(1);
+        lld1.addLast(2);
+        lld1.addLast(3);
+        lld1.addLast(4);
+        lld1.addLast(5);    // 1,2,3,4,5
+
+        lld1.removeLast();
+        lld1.removeFirst();
+        lld1.removeFirst();   // 3,4
+
+        assertThat(lld1.getRecursive(0)).isEqualTo(3);
+        assertThat(lld1.getRecursive(1)).isEqualTo(4);
+    }
+
+    @Test
+    public void testGetRecursiveOutOfBounds() {
+        Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
+
+        lld1.addLast(1);
+        lld1.addLast(2);
+        lld1.addLast(3);
+
+        assertThat(lld1.getRecursive(-1)).isNull();
+        assertThat(lld1.getRecursive(100)).isNull();
     }
 
     @Test
@@ -138,7 +196,7 @@ public class LinkedListDeque61BTest {
 
         lld1.addLast(1);
         lld1.addLast(2);
-        lld1.addLast(3);
+        lld1.addLast(3);    // 1,2,3
 
         assertThat(lld1.getFirst()).isEqualTo(1);
     }
@@ -151,7 +209,7 @@ public class LinkedListDeque61BTest {
 
         lld1.addLast(1);
         lld1.addLast(2);
-        lld1.addLast(3);
+        lld1.addLast(3);    // 1,2,3
 
         assertThat(lld1.getLast()).isEqualTo(3);
     }
