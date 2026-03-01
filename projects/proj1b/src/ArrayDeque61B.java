@@ -1,29 +1,11 @@
 import java.util.List;
 
-/**
- * A Deque61B is a double-ended queue:
- * you can add and remove items from either end.
- *
- * @author Hug
- */
-public interface Deque61B<T> {
+public class ArrayDeque61B<T> implements Deque61B<T> {
     /**
-     * Returns the element at the front of the deque,
-     * if it exists.
-     * Does not alter the deque.
-     *
-     * @return element at the front of the deque, otherwise {@code null}.
+     * Constructs an empty ArrayDeque61B.
      */
-    T getFirst();
-
-    /**
-     * Returns the element at the back of the deque,
-     * if it exists.
-     * Does not alter the deque.
-     *
-     * @return element at the back of the deque, otherwise {@code null}.
-     */
-    T getLast();
+    public ArrayDeque61B() {
+    }
 
     /**
      * Add {@code x} to the front of the deque.
@@ -31,7 +13,10 @@ public interface Deque61B<T> {
      *
      * @param x item to add
      */
-    void addFirst(T x);
+    @Override
+    public void addFirst(T x) {
+
+    }
 
     /**
      * Add {@code x} to the back of the deque.
@@ -39,7 +24,10 @@ public interface Deque61B<T> {
      *
      * @param x item to add
      */
-    void addLast(T x);
+    @Override
+    public void addLast(T x) {
+
+    }
 
     /**
      * Returns a List copy of the deque.
@@ -47,7 +35,10 @@ public interface Deque61B<T> {
      *
      * @return a new list copy of the deque.
      */
-    List<T> toList();
+    @Override
+    public List<T> toList() {
+        return List.of();
+    }
 
     /**
      * Returns if the deque is empty.
@@ -55,7 +46,10 @@ public interface Deque61B<T> {
      *
      * @return {@code true} if the deque has no elements, {@code false} otherwise.
      */
-    boolean isEmpty();
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
 
     /**
      * Returns the size of the deque.
@@ -63,7 +57,10 @@ public interface Deque61B<T> {
      *
      * @return the number of items in the deque.
      */
-    int size();
+    @Override
+    public int size() {
+        return 0;
+    }
 
     /**
      * Remove and return the element at the front of the deque,
@@ -71,7 +68,10 @@ public interface Deque61B<T> {
      *
      * @return removed element, otherwise {@code null}.
      */
-    T removeFirst();
+    @Override
+    public T removeFirst() {
+        return null;
+    }
 
     /**
      * Remove and return the element at the back of the deque,
@@ -79,7 +79,10 @@ public interface Deque61B<T> {
      *
      * @return removed element, otherwise {@code null}.
      */
-    T removeLast();
+    @Override
+    public T removeLast() {
+        return null;
+    }
 
     /**
      * The Deque61B abstract data type does not typically have a get method,
@@ -92,7 +95,10 @@ public interface Deque61B<T> {
      * @param index index to get
      * @return element at {@code index} in the deque
      */
-    T get(int index);
+    @Override
+    public T get(int index) {
+        return null;
+    }
 
     /**
      * This method technically shouldn't be in the interface,
@@ -104,5 +110,8 @@ public interface Deque61B<T> {
      * @param index index to get
      * @return element at {@code index} in the deque
      */
-    T getRecursive(int index);
+    @Override
+    public T getRecursive(int index) {
+        return null;
+    }
 }
