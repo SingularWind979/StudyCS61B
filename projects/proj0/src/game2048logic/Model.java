@@ -171,7 +171,8 @@ public class Model {
                 // Check the tile to the up.
                 if (j + 1 < size()) {
                     Tile tileU = board.tile(i, j + 1);
-                    if (tile.value() == tileU.value()) {
+                    if (tile != null && tileU != null
+                            && tile.value() == tileU.value()) {
                         return true;
                     }
                 }
@@ -179,7 +180,8 @@ public class Model {
                 // Check the tile to the right.
                 if (i + 1 < size()) {
                     Tile tileR = board.tile(i + 1, j);
-                    if (tile.value() == tileR.value()) {
+                    if (tile != null && tileR != null
+                            && tile.value() == tileR.value()) {
                         return true;
                     }
                 }
@@ -198,7 +200,7 @@ public class Model {
      * @return True if there is at least one valid move.
      */
     public boolean atLeastOneMoveExists() {
-        return emptySpaceExists() || !mergeableTileExists();
+        return emptySpaceExists() || mergeableTileExists();
     }
 
     /**
