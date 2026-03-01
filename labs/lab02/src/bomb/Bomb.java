@@ -1,6 +1,6 @@
 package bomb;
 
-import common.IntList;
+import common.IntList1;
 import edu.princeton.cs.algs4.StdRandom;
 
 import java.util.HashSet;
@@ -18,15 +18,15 @@ public class Bomb {
         return String.valueOf(chars);
     }
 
-    public IntList shufflePasswordIntList(String s) {
+    public IntList1 shufflePasswordIntList(String s) {
         String code = "" + s.hashCode();
         StdRandom.setSeed(61833);
         char[] chars = code.toCharArray();
         StdRandom.shuffle(chars);
 
-        IntList curr = null;
+        IntList1 curr = null;
         for (int i = chars.length - 1; i >= 0; i--) {
-            curr = new IntList(Integer.parseInt(String.valueOf(chars[i])), curr);
+            curr = new IntList1(Integer.parseInt(String.valueOf(chars[i])), curr);
         }
 
         return curr;
@@ -41,8 +41,8 @@ public class Bomb {
         System.err.println("You passed phase 0 with the password \"" + password + "\"");
     }
 
-    public void phase1(IntList password) {
-        IntList correctIntListPassword = shufflePasswordIntList("bye");
+    public void phase1(IntList1 password) {
+        IntList1 correctIntListPassword = shufflePasswordIntList("bye");
         if (!correctIntListPassword.equals(password)) {
             System.out.println("Phase 1 went BOOM!");
             return;

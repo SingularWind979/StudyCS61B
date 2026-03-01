@@ -157,6 +157,41 @@ public class Model {
     }
 
     /**
+     * Returns true if there are any tiles that can be merged.
+     * Two tiles can be merged if they have the same value
+     * and are next to each other in the same row or column.
+     *
+     * @return True if there are any mergeable tiles.
+     */
+    public boolean mergeableTileExists() {
+        for (int i = 0; i < size(); i++) {
+            for (int j = 0; j < size(); j++) {
+                Tile tile = board.tile(i, j);
+
+                // Check the tile to the up.
+                if (j + 1 < size()) {
+                    Tile tileU = board.tile(i, j + 1);
+                    if (tile != null && tileU != null
+                            && tile.value() == tileU.value()) {
+                        return true;
+                    }
+                }
+
+                // Check the tile to the right.
+                if (i + 1 < size()) {
+                    Tile tileR = board.tile(i + 1, j);
+                    if (tile != null && tileR != null
+                            && tile.value() == tileR.value()) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Returns true if there are any valid moves on the board.
      * There are two ways that there can be valid moves:
      * 1. There is at least one empty space on the board.
@@ -165,35 +200,7 @@ public class Model {
      * @return True if there is at least one valid move.
      */
     public boolean atLeastOneMoveExists() {
-        // 1. There is at least one empty space on the board.
-        if (emptySpaceExists()) {
-            return true;
-        }
-
-        // 2. There are two adjacent tiles with the same value.
-        for (int i = 0; i < size(); i++) {
-            for (int j = 0; j < size(); j++) {
-                Tile tile = board.tile(i, j);
-
-                // Check the tile to the up.
-                if (j + 1 < size()) {
-                    Tile tileU = board.tile(i, j + 1);
-                    if (tile.value() == tileU.value()) {
-                        return true;
-                    }
-                }
-
-                // Check the tile to the right.
-                if (i + 1 < size()) {
-                    Tile tileR = board.tile(i + 1, j);
-                    if (tile.value() == tileR.value()) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
+        return emptySpaceExists() || mergeableTileExists();
     }
 
     /**
