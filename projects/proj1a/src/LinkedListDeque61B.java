@@ -110,7 +110,6 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
 
     /**
      * Returns if the deque is empty.
-     * Does not alter the deque.
      *
      * @return {@code true} if the deque has no elements, {@code false} otherwise.
      */
@@ -121,7 +120,6 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
 
     /**
      * Returns the size of the deque.
-     * Does not alter the deque.
      *
      * @return the number of items in the deque.
      */
@@ -161,11 +159,12 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      * Does not alter the deque.
      *
      * @param index index to get
-     * @return element at {@code index} in the deque
+     * @return element at {@code index} in the deque,
+     * {@code null} if index is out of bounds.
      */
     @Override
     public T get(int index) {
-        return null;
+        return getNode(index).item;
     }
 
     /**
@@ -184,9 +183,44 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
     }
 
     /**
-     * Returns the first node in the deque,
+     * Returns the node at the given index in the deque,
+     * or {@code sentinel} if index is out of bounds.
+     * Remembers {@code sentinel.item} is null.
      *
-     * @return the first node in the deque, otherwise {@code sentinel}.
+     * @param index index to get
+     * @return node at {@code index} in the deque
+     */
+    private Node getNode(int index) {
+        // index is out of bounds
+        if (index < 0 || index >= size) {
+            return sentinel;
+        }
+
+        // iterate to the node
+        Node p;
+
+        // iterate from the front or the back
+        if (index < size / 2) {
+            p = sentinel.next;
+            for (int i = 0; i < index; i++) {
+                p = p.next;
+            }
+        } else {
+            p = sentinel.prev;
+            for (int i = size - 1; i > index; i--) {
+                p = p.prev;
+            }
+        }
+
+        return p;
+    }
+
+    /**
+     * Returns the first node in the deque,
+     * or {@code sentinel} if the deque is empty.
+     * Remembers {@code sentinel.item} is null.
+     *
+     * @return the first node in the deque
      */
     private Node getFirstNode() {
         return sentinel.next;
@@ -195,8 +229,10 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
 
     /**
      * Returns the last node in the deque,
+     * or {@code sentinel} if the deque is empty.
+     * Remembers {@code sentinel.item} is null.
      *
-     * @return the last node in the deque, otherwise {@code sentinel}.
+     * @return the last node in the deque
      */
     private Node getLastNode() {
         return sentinel.prev;
