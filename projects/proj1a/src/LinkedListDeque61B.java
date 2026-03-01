@@ -26,8 +26,10 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     public LinkedListDeque61B() {
         sentinel = new Node(null, null, null);
+
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
+
         size = 0;
     }
 
@@ -65,8 +67,10 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
     public void addFirst(T x) {
         Node oldFirst = getFirstNode();
         Node newFirst = new Node(x, sentinel, oldFirst);
+
         sentinel.next = newFirst;
         oldFirst.prev = newFirst;
+
         size++;
     }
 
@@ -80,8 +84,10 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
     public void addLast(T x) {
         Node oldLast = getLastNode();
         Node newLast = new Node(x, oldLast, sentinel);
+
         sentinel.prev = newLast;
         oldLast.next = newLast;
+
         size++;
     }
 
@@ -110,7 +116,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     /**
@@ -121,7 +127,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**
