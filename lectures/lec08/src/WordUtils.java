@@ -12,7 +12,7 @@ public class WordUtils {
      * @param words the array of words to search
      * @return the longest word in the array
      */
-    public static String longest(List<String> words) {
+    public static String longest(MyList<String> words) {
         String longest = "";
         for (int i = 0; i < words.size(); i++) {
             String current = words.get(i);

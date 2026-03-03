@@ -5,41 +5,20 @@
  * @author SingularWind
  */
 @SuppressWarnings("unchecked")
-public class AList<T> implements List<T> {
+public class AList<T> extends AbstractList<T> {
     private static final int INIT_CAPACITY = 100;
     private static final int RESIZE_FACTOR = 2;
     private static final double MIN_USAGE_RATIO = 1.0 / RESIZE_FACTOR / RESIZE_FACTOR;
 
     private T[] items;  // array to store the elements in this list
-    private int size;   // number of elements in this list
 
     /**
      * Constructs an empty AList with the default capacity.
      */
     public AList() {
         items = (T[]) new Object[INIT_CAPACITY];
-        size = 0;
     }
 
-    /**
-     * Returns the number of elements in this list.
-     *
-     * @return the number of elements in this list
-     */
-    @Override
-    public int size() {
-        return size;
-    }
-
-    /**
-     * Returns true if this list contains no elements.
-     *
-     * @return true if this list contains no elements
-     */
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
 
     /**
      * Returns the item at the given index.
@@ -49,6 +28,8 @@ public class AList<T> implements List<T> {
      */
     @Override
     public T get(int index) {
+        // check if the list is empty
+        checkEmptyList();
         // check if index is valid
         checkIndex(index);
 
@@ -92,13 +73,10 @@ public class AList<T> implements List<T> {
      */
     @Override
     public T remove(int index) {
-        // check if the index is valid
+        // check if the list is empty
+        checkEmptyList();
+        // check if index is valid
         checkIndex(index);
-
-        // check if remove is valid
-        if (isEmpty()) {
-            throw new IllegalStateException("List is empty");
-        }
 
         // remove the item at the given index
         T removed = items[index];
@@ -151,9 +129,11 @@ public class AList<T> implements List<T> {
      */
     @Override
     public void addLast(T item) {
+        // resize if necessary
         if (isFull()) {
             resize(items.length * RESIZE_FACTOR);
         }
+
         items[size++] = item;
     }
 
@@ -175,9 +155,7 @@ public class AList<T> implements List<T> {
     @Override
     public T removeLast() {
         // check if the list is empty
-        if (isEmpty()) {
-            throw new IllegalStateException("List is empty");
-        }
+        checkEmptyList();
 
         // remove the last item
         T last = items[size - 1];
@@ -223,33 +201,12 @@ public class AList<T> implements List<T> {
     }
 
     /**
-     * Checks if the given index is valid for this list.
+     * Returns the connector character used in the string representation of this list.
      *
-     * @param index the index to check
-     * @throws IndexOutOfBoundsException if the index is not valid for this list
-     */
-    private void checkIndex(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for length " + size);
-        }
-    }
-
-    /**
-     * Returns a string representation of the list.
-     *
-     * @return a string representation of the list
+     * @return the connector character used in the string representation of this list
      */
     @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("AList[");
-        for (int i = 0; i < size; i++) {
-            sb.append(items[i]);
-            if (i < size - 1) {
-                sb.append(", ");
-            }
-        }
-        sb.append("]");
-        return sb.toString();
+    protected String connector() {
+        return ", ";
     }
 }
