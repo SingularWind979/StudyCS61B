@@ -4,7 +4,7 @@
  * @param <T> the type of items in the list
  * @author SingularWind
  */
-public interface List<T> {
+public interface MyList<T> {
     /**
      * Returns the number of items in the list.
      *

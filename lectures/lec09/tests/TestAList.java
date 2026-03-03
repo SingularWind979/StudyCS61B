@@ -8,7 +8,6 @@ import static com.google.common.truth.Truth.assertThat;
  * @author SingularWind
  */
 public class TestAList {
-
     @Test
     public void testAddLastAndSize() {
         AList<Integer> list = new AList<>();
