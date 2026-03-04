@@ -3,6 +3,7 @@ import java.util.List;
 /**
  * A Deque61B is a double-ended queue:
  * you can add and remove items from either end.
+ *
  * @author Hug
  */
 public interface Deque61B<T> {

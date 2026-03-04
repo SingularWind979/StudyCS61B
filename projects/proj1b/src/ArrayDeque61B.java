@@ -1,10 +1,33 @@
 import java.util.List;
 
+/**
+ * Represents an array deque implementation of a deque.
+ *
+ * @param <T> the type of items stored in the deque
+ * @author SingularWind
+ */
 public class ArrayDeque61B<T> implements Deque61B<T> {
+    /** The initial capacity of the deque. */
+    private static final int INIT_CAPACITY = 8;
+
+    /** The array that stores the items. */
+    T[] items;
+    /** The number of items in the deque. */
+    int size;
+    /** The index of the next item to interact with from the front. */
+    int nextFirst;
+    /** The index of the next item to interact with from the back. */
+    int nextLast;
+
     /**
      * Constructs an empty ArrayDeque61B.
      */
     public ArrayDeque61B() {
+        //noinspection unchecked
+        items = (T[]) new Object[INIT_CAPACITY];
+        size = 0;
+        nextFirst = INIT_CAPACITY / 2;
+        nextLast =  nextFirst + 1;
     }
 
     /**
