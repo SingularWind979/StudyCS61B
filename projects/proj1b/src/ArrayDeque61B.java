@@ -31,6 +31,30 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     }
 
     /**
+     * Returns the element at the front of the deque,
+     * if it exists.
+     * Does not alter the deque.
+     *
+     * @return element at the front of the deque, otherwise {@code null}.
+     */
+    @Override
+    public T getFirst() {
+        return get(0);
+    }
+
+    /**
+     * Returns the element at the back of the deque,
+     * if it exists.
+     * Does not alter the deque.
+     *
+     * @return element at the back of the deque, otherwise {@code null}.
+     */
+    @Override
+    public T getLast() {
+        return get(size - 1);
+    }
+
+    /**
      * Add {@code x} to the front of the deque.
      * Assumes {@code x} is never null.
      *
@@ -124,7 +148,11 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public T get(int index) {
-        return null;
+        if (index < 0 || index >= size) {
+            return null;
+        }
+
+        return items[Math.floorMod(nextFirst + 1 + index, capacity())];
     }
 
     /**

@@ -8,6 +8,24 @@ import java.util.List;
  */
 public interface Deque61B<T> {
     /**
+     * Returns the element at the front of the deque,
+     * if it exists.
+     * Does not alter the deque.
+     *
+     * @return element at the front of the deque, otherwise {@code null}.
+     */
+    T getFirst();
+
+    /**
+     * Returns the element at the back of the deque,
+     * if it exists.
+     * Does not alter the deque.
+     *
+     * @return element at the back of the deque, otherwise {@code null}.
+     */
+    T getLast();
+
+    /**
      * Add {@code x} to the front of the deque.
      * Assumes {@code x} is never null.
      *
