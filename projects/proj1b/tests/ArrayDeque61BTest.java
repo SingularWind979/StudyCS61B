@@ -19,4 +19,60 @@ public class ArrayDeque61BTest {
         assertWithMessage("Found fields that are not array or primitives")
                 .that(badFields).isEmpty();
     }
+
+    @Test
+    void testAddFirst() {
+        Deque61B<Integer> deque = new ArrayDeque61B<>();
+
+        for (int i = 0; i < 8; i++) {
+            deque.addFirst(i);
+        }
+
+        assertThat(deque.toList()).
+                containsExactly(7, 6, 5, 4, 3, 2, 1, 0).
+                inOrder();
+    }
+
+    @Test
+    void testAddLast() {
+        Deque61B<Integer> deque = new ArrayDeque61B<>();
+
+        for (int i = 0; i < 8; i++) {
+            deque.addLast(i);
+        }
+
+        assertThat(deque.toList()).
+                containsExactly(0, 1, 2, 3, 4, 5, 6, 7).
+                inOrder();
+    }
+
+    @Test
+    void testAddFirstAndLast() {
+        Deque61B<Integer> deque = new ArrayDeque61B<>();
+
+        for (int i = 0; i < 4; i++) {
+            deque.addFirst(i);
+        }
+
+        for (int i = 4; i < 8; i++) {
+            deque.addLast(i);
+        }
+
+        assertThat(deque.toList()).
+                containsExactly(3, 2, 1, 0, 4, 5, 6, 7).
+                inOrder();
+    }
+
+    @Test
+    void testAddsWithResize() {
+        Deque61B<Integer> deque = new ArrayDeque61B<>();
+
+        for (int i = 0; i < 10; i++) {
+            deque.addFirst(i);
+        }
+
+        assertThat(deque.toList()).
+                containsExactly(9, 8, 7, 6, 5, 4, 3, 2, 1, 0).
+                inOrder();
+    }
 }

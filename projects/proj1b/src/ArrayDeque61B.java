@@ -26,8 +26,8 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         //noinspection unchecked
         items = (T[]) new Object[INIT_CAPACITY];
         size = 0;
-        nextFirst = INIT_CAPACITY / 2;
-        nextLast =  nextFirst + 1;
+        nextFirst = 0;
+        nextLast  = 1;
     }
 
     /**
@@ -38,7 +38,9 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public void addFirst(T x) {
-
+        items[nextFirst--] = x;
+        nextFirst = Math.floorMod(nextFirst, capacity());
+        size++;
     }
 
     /**
@@ -49,7 +51,9 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public void addLast(T x) {
-
+        items[nextLast++] = x;
+        nextLast = Math.floorMod(nextLast, capacity());
+        size++;
     }
 
     /**
@@ -136,5 +140,14 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     @Override
     public T getRecursive(int index) {
         return null;
+    }
+
+    /**
+     * Returns the capacity of the deque.
+     *
+     * @return the capacity of the deque
+     */
+    private int capacity() {
+        return items.length;
     }
 }
