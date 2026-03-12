@@ -3,6 +3,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -152,5 +153,18 @@ public class ArrayDeque61BTest {
 
         assertThat(deque.isEmpty()).isFalse();
         assertThat(deque.size()).isEqualTo(BASIC_TEST_SCALE);
+    }
+
+    @Test
+    void testToList() {
+        Deque61B<Integer> deque = new ArrayDeque61B<>();
+        List<Integer> list = new ArrayList<>();
+
+        for (int i = 0; i < BASIC_TEST_SCALE; i++) {
+            deque.addLast(i);
+            list.add(i);
+        }
+
+        assertThat(deque.toList()).containsExactlyElementsIn(list).inOrder();
     }
 }

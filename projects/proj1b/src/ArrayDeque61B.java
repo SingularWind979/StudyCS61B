@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -88,7 +89,13 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public List<T> toList() {
-        return List.of();
+        List<T> list = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            list.add(get(i));
+        }
+
+        return list;
     }
 
     /**
