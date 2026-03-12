@@ -15,16 +15,16 @@ public class ArrayDeque61BTest {
     @Test
     @DisplayName("ArrayDeque61B has no fields besides backing array and primitives")
     void noNonTrivialFields() {
-        List<Field> badFields = Reflection.getFields(ArrayDeque61B.class)
-                .filter(f -> !(f.getType().isPrimitive() || f.getType().equals(Object[].class) || f.isSynthetic()))
-                 .toList();
+        List<Field> badFields = Reflection.getFields(ArrayDeque61B.class).
+                filter(f -> !(f.getType().isPrimitive() || f.getType().equals(Object[].class) || f.isSynthetic())).
+                toList();
 
-        assertWithMessage("Found fields that are not array or primitives")
-                .that(badFields).isEmpty();
+        assertWithMessage("Found fields that are not array or primitives").
+                that(badFields).isEmpty();
     }
 
     @Test
-    void testAddFirst() {
+    void testAddFirstBasic() {
         Deque61B<Integer> deque = new ArrayDeque61B<>();
 
         for (int i = 0; i < BASIC_TEST_SCALE; i++) {
@@ -37,7 +37,7 @@ public class ArrayDeque61BTest {
     }
 
     @Test
-    void testAddLast() {
+    void testAddLastBasic() {
         Deque61B<Integer> deque = new ArrayDeque61B<>();
 
         for (int i = 0; i < BASIC_TEST_SCALE; i++) {
@@ -50,7 +50,7 @@ public class ArrayDeque61BTest {
     }
 
     @Test
-    void testAddFirstAndLast() {
+    void testAddFirstAndLastBasic() {
         Deque61B<Integer> deque = new ArrayDeque61B<>();
 
         for (int i = 0; i < BASIC_TEST_SCALE / 2; i++) {
@@ -67,7 +67,7 @@ public class ArrayDeque61BTest {
     }
 
     @Test
-    void testAddsWithResize() {
+    void testAddFirstAndLastWithResize() {
         Deque61B<Integer> deque = new ArrayDeque61B<>();
 
         for (int i = 0; i < RESIZE_TEST_SCALE; i++) {
@@ -80,7 +80,7 @@ public class ArrayDeque61BTest {
     }
 
     @Test
-    void testGet() {
+    void testGetBasic() {
         Deque61B<Integer> deque = new ArrayDeque61B<>();
 
         assertThat(deque.get(0)).isNull();
@@ -93,11 +93,11 @@ public class ArrayDeque61BTest {
             assertThat(deque.get(i)).isEqualTo(i);
         }
 
-        assertThat(deque.get(15)).isNull();
+        assertThat(deque.get(BASIC_TEST_SCALE + 1)).isNull();
     }
 
     @Test
-    void testGetRecursive() {
+    void testGetRecursiveBasic() {
         Deque61B<Integer> deque = new ArrayDeque61B<>();
 
         assertThat(deque.getRecursive(0)).isNull();
@@ -110,11 +110,11 @@ public class ArrayDeque61BTest {
             assertThat(deque.getRecursive(i)).isEqualTo(i);
         }
 
-        assertThat(deque.getRecursive(15)).isNull();
+        assertThat(deque.getRecursive(BASIC_TEST_SCALE + 1)).isNull();
     }
 
     @Test
-    void testGetFirst() {
+    void testGetFirstBasic() {
         Deque61B<Integer> deque = new ArrayDeque61B<>();
 
         assertThat(deque.getFirst()).isNull();
@@ -127,7 +127,7 @@ public class ArrayDeque61BTest {
     }
 
     @Test
-    void testGetLast() {
+    void testGetLastBasic() {
         Deque61B<Integer> deque = new ArrayDeque61B<>();
 
         assertThat(deque.getLast()).isNull();
@@ -137,5 +137,20 @@ public class ArrayDeque61BTest {
         }
 
         assertThat(deque.getLast()).isEqualTo(BASIC_TEST_SCALE - 1);
+    }
+
+    @Test
+    void testIsEmptyAndSizeBasic() {
+        Deque61B<Integer> deque = new ArrayDeque61B<>();
+
+        assertThat(deque.isEmpty()).isTrue();
+        assertThat(deque.size()).isEqualTo(0);
+
+        for (int i = 0; i < BASIC_TEST_SCALE; i++) {
+            deque.addLast(i);
+        }
+
+        assertThat(deque.isEmpty()).isFalse();
+        assertThat(deque.size()).isEqualTo(BASIC_TEST_SCALE);
     }
 }
