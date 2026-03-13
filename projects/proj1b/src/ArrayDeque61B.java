@@ -15,9 +15,17 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     T[] items;
     /** The number of items in the deque. */
     int size;
-    /** The index of the next item to interact with from the front. */
+    /**
+     * Physical pos in the array
+     * where the {@code addFirst} operation will insert the next item.
+     * validify(nextFirst + 1) is the first item in the array.
+     */
     int nextFirst;
-    /** The index of the next item to interact with from the back. */
+    /**
+     * Physical pos in the array
+     * where the {@code addLast} operation will insert the next item.
+     * validify(nextLast - 1) is the last item in the array.
+     */
     int nextLast;
 
     /**
@@ -63,9 +71,12 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public void addFirst(T x) {
-        items[nextFirst--] = x;
-        nextFirst = Math.floorMod(nextFirst, capacity());
+        // Add x to the front of the deque
+        items[nextFirst] = x;
         size++;
+
+        // Move nextFirst to the new position
+        nextFirst = validify(nextFirst - 1);
     }
 
     /**
@@ -76,9 +87,12 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public void addLast(T x) {
-        items[nextLast++] = x;
-        nextLast = Math.floorMod(nextLast, capacity());
+        // Add x to the back of the deque
+        items[nextLast] = x;
         size++;
+
+        // Move nextLast to the new position
+        nextLast = validify(nextLast + 1);
     }
 
     /**
@@ -128,7 +142,22 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public T removeFirst() {
-        return null;
+        // Check if the deque is empty
+        if (isEmpty()) {
+            return null;
+        }
+
+        // Move nextFirst to the first position
+        nextFirst = validify(nextFirst + 1);
+
+        // Get the element at the first position
+        T x = items[nextFirst];
+
+        // Clear the old position
+        items[nextFirst] = null;
+        size--;
+
+        return x;
     }
 
     /**
@@ -139,7 +168,22 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public T removeLast() {
-        return null;
+        // Check if the deque is empty
+        if (isEmpty()) {
+            return null;
+        }
+
+        // Move nextLast to the last position
+        nextLast = validify(nextLast - 1);
+
+        // Get the element at the last position
+        T x = items[nextLast];
+
+        // Clear the old position
+        items[nextLast] = null;
+        size--;
+
+        return x;
     }
 
     /**
@@ -159,7 +203,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
             return null;
         }
 
-        return items[Math.floorMod(nextFirst + 1 + index, capacity())];
+        return items[validify(nextFirst + 1 + index)];
     }
 
     /**
@@ -184,5 +228,15 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
      */
     private int capacity() {
         return items.length;
+    }
+
+    /**
+     * Returns a valid position in the array.
+     *
+     * @param pos position to validate
+     * @return a valid position in the array
+     */
+    private int validify(int pos) {
+        return Math.floorMod(pos, capacity());
     }
 }
