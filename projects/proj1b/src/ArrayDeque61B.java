@@ -207,18 +207,14 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     }
 
     /**
-     * This method technically shouldn't be in the interface,
-     * but it's here to make testing nice.
-     * Gets an element, recursively.
-     * Returns null if index is out of bounds.
-     * Does not alter the deque.
+     * This method technically shouldn't be in the implementation,
+     * will throw an UnsupportedOperationException.
      *
-     * @param index index to get
-     * @return element at {@code index} in the deque
+     * @throws UnsupportedOperationException if the method is not implemented
      */
     @Override
     public T getRecursive(int index) {
-        return null;
+        throw new UnsupportedOperationException("getRecursive not implemented");
     }
 
     /**
