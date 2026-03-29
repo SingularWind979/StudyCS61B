@@ -1,7 +1,7 @@
 package deque;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * An array implementation of the Deque61B interface.
@@ -10,7 +10,7 @@ import java.util.List;
  * @author SingularWind
  * @version 2.0
  */
-public class ArrayDeque61B<T> implements Deque61B<T> {
+public class ArrayDeque61B<T> extends AbstractDeque61B<T> {
     /** The initial and minium capacity of the deque. */
     private static final int INIT_CAPACITY = 8;
     /** The geometric resize factor of the deque. */
@@ -18,8 +18,6 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
 
     /** The backing array of items in the deque. */
     private T[] items;
-    /** The number of items in the deque. */
-    private int size;
 
     /**
      * The array index of the next first item to be added in the backing array.
@@ -39,7 +37,6 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     public ArrayDeque61B() {
         //noinspection unchecked
         items = (T[]) new Object[INIT_CAPACITY];
-        size = 0;
         nextFirst = 0;
         nextLast = 1;
 
@@ -86,43 +83,6 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         size++;
 
         checkInvariants();
-    }
-
-    /**
-     * Returns a List copy of the deque.
-     * Does not alter the deque.
-     *
-     * @return a new list copy of the deque.
-     */
-    @Override
-    public List<T> toList() {
-        List<T> list = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            list.add(get(i));
-        }
-        return list;
-    }
-
-    /**
-     * Returns if the deque is empty.
-     * Does not alter the deque.
-     *
-     * @return {@code true} if the deque has no elements, {@code false} otherwise.
-     */
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    /**
-     * Returns the size of the deque.
-     * Does not alter the deque.
-     *
-     * @return the number of items in the deque.
-     */
-    @Override
-    public int size() {
-        return size;
     }
 
     /**
@@ -242,16 +202,16 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
      */
     private void checkInvariants() {
         // check size
-        assert size >= 0 && size <= capacity(): "size is out of bounds";
+        assert size >= 0 && size <= capacity() : "size is out of bounds";
 
         // check nextFirst and nextLast are valid
-        assert nextFirst == validify(nextFirst): "nextFirst is out of bounds";
-        assert nextLast  == validify(nextLast) : "nextLast is out of bounds";
+        assert nextFirst == validify(nextFirst) : "nextFirst is out of bounds";
+        assert nextLast  == validify(nextLast)  : "nextLast is out of bounds";
 
         // check items[nextFirst] and items[nextLast] are null to avoid loitering
         if (size < capacity()) {
-            assert items[nextFirst] == null: "nextFirst is not null";
-            assert items[nextLast]  == null: "nextLast is not null";
+            assert items[nextFirst] == null : "nextFirst is not null";
+            assert items[nextLast]  == null : "nextLast is not null";
         }
     }
 
@@ -347,5 +307,45 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
                 && capacity() > INIT_CAPACITY * RESIZE_FACTOR) {
             resizeTo(capacity() / RESIZE_FACTOR);
         }
+    }
+
+    /**
+     * Returns an iterator over elements of type {@code T}.
+     *
+     * @return an Iterator.
+     */
+    @Override
+    @SuppressWarnings("NullableProblems")
+    public Iterator<T> iterator() {
+        return new Iterator<>() {
+            /**
+             * Current deque index in the iteration, ranging [0, size).
+             * Gets item by {@code get(currentIndex)}.
+             */
+            private int currentIndex = 0;
+
+            /**
+             * Returns if the iterator has more elements.
+             * @return {@code true} if the iterator has more elements, {@code false} otherwise.
+             */
+            @Override
+            public boolean hasNext() {
+                return currentIndex < size;
+            }
+
+            /**
+             * Returns the next element in the iteration.
+             *
+             * @return the next element in the iteration.
+             * @throws NoSuchElementException if the iterator has no more elements.
+             */
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                return get(currentIndex++);
+            }
+        };
     }
 }

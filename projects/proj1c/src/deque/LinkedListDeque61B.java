@@ -1,7 +1,7 @@
 package deque;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * A linked list implementation of the Deque61B interface.
@@ -10,15 +10,13 @@ import java.util.List;
  * @author SingularWind
  * @version 2.0
  */
-public class LinkedListDeque61B<T> implements Deque61B<T> {
+public class LinkedListDeque61B<T> extends AbstractDeque61B<T> {
     /**
      * The sentinel node in the deque,
      * sentinel.next the first actual node,
       sentinel.prev the last actual node.
      */
     private final Node<T> sentinel;
-    /** The number of actual nodes in the deque. */
-    private int size;
 
     /**
      * Constructs a new empty linked list deque.
@@ -27,7 +25,6 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         sentinel = new Node<>(null, null, null);
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
-        size = 0;
 
         checkInvariants();
     }
@@ -68,47 +65,6 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         size++;
 
         checkInvariants();
-    }
-
-    /**
-     * Returns a List copy of the deque.
-     * Does not alter the deque.
-     *
-     * @return a new list copy of the deque.
-     */
-    @Override
-    public List<T> toList() {
-        List<T> list = new ArrayList<>();
-
-        Node<T> current = getFirstNode();
-        while (current != sentinel) {
-            list.add(current.item);
-            current = current.next;
-        }
-
-        return list;
-    }
-
-    /**
-     * Returns if the deque is empty.
-     * Does not alter the deque.
-     *
-     * @return {@code true} if the deque has no elements, {@code false} otherwise.
-     */
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    /**
-     * Returns the size of the deque.
-     * Does not alter the deque.
-     *
-     * @return the number of items in the deque.
-     */
-    @Override
-    public int size() {
-        return size;
     }
 
     /**
@@ -225,13 +181,13 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     private void checkInvariants() {
         // check sentinel structure, stores no item, and doesn't point to null
-        assert sentinel.item == null: "sentinel.item is not null";
-        assert sentinel.next != null: "sentinel.next is null";
-        assert sentinel.prev != null: "sentinel.prev is null";
+        assert sentinel.item == null : "sentinel.item is not null";
+        assert sentinel.next != null : "sentinel.next is null";
+        assert sentinel.prev != null : "sentinel.prev is null";
 
         // check first and last node point to sentinel node
-        assert sentinel.next.prev == sentinel: "first.prev is not sentinel";
-        assert sentinel.prev.next == sentinel: "last.next is not sentinel";
+        assert sentinel.next.prev == sentinel : "first.prev is not sentinel";
+        assert sentinel.prev.next == sentinel : "last.next is not sentinel";
     }
 
     /**
@@ -291,6 +247,49 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     private Node<T> getLastNode() {
         return sentinel.prev;
+    }
+
+    /**
+     * Returns an iterator over elements of type {@code T}.
+     *
+     * @return an Iterator.
+     */
+    @Override
+    @SuppressWarnings("NullableProblems")
+    public Iterator<T> iterator() {
+        return new Iterator<>() {
+            /**
+             * Current node in the iteration, ranging [sentinel.next, sentinel).
+             * Gets item by {@code currentNode.item}.
+             */
+            Node<T> currentNode = sentinel.next;
+
+            /**
+             * Returns if the iterator has more elements.
+             *
+             * @return {@code true} if the iterator has more elements, {@code false} otherwise.
+             */
+            @Override
+            public boolean hasNext() {
+                return currentNode != sentinel;
+            }
+
+            /**
+             * Returns the next element in the iteration.
+             *
+             * @return the next element in the iteration
+             * @throws NoSuchElementException if the iterator has no more elements
+             */
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                T item = currentNode.item;
+                currentNode = currentNode.next;
+                return item;
+            }
+        };
     }
 
     /**
