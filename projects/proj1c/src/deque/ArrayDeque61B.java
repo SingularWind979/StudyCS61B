@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
  */
 public class ArrayDeque61B<T> extends AbstractDeque61B<T> {
     /** The initial and minium capacity of the deque. */
-    private static final int INIT_CAPACITY = 8;
+    private static final int DEFAULT_CAPACITY = 8;
     /** The geometric resize factor of the deque. */
     private static final int RESIZE_FACTOR = 2;
 
@@ -32,11 +32,26 @@ public class ArrayDeque61B<T> extends AbstractDeque61B<T> {
 
     /**
      * Initializes an empty deque
-     * with the initial capacity of {@code INIT_CAPACITY}.
+     * with the initial capacity of {@code DEFAULT_CAPACITY}.
      */
     public ArrayDeque61B() {
         //noinspection unchecked
-        items = (T[]) new Object[INIT_CAPACITY];
+        items = (T[]) new Object[DEFAULT_CAPACITY];
+        nextFirst = 0;
+        nextLast = 1;
+
+        checkInvariants();
+    }
+
+    /**
+     * Clears the array deque.
+     */
+    @Override
+    public void clear() {
+        super.clear();
+
+        //noinspection unchecked
+        items = (T[]) new Object[DEFAULT_CAPACITY];
         nextFirst = 0;
         nextLast = 1;
 
@@ -302,9 +317,9 @@ public class ArrayDeque61B<T> extends AbstractDeque61B<T> {
         }
 
         // Rather empty, can shrink twice,
-        // resize down, but no less than INIT_CAPACITY
+        // resize down, but no less than DEFAULT_CAPACITY
         if (capacity() > size * RESIZE_FACTOR * RESIZE_FACTOR
-                && capacity() > INIT_CAPACITY * RESIZE_FACTOR) {
+                && capacity() > DEFAULT_CAPACITY * RESIZE_FACTOR) {
             resizeTo(capacity() / RESIZE_FACTOR);
         }
     }

@@ -11,6 +11,26 @@ import java.util.List;
  */
 public interface Deque61B<T> extends Iterable<T> {
     /**
+     * Returns if the deque is empty.
+     * Does not alter the deque.
+     *
+     * @return {@code true} if the deque has no elements, {@code false} otherwise.
+     */
+    boolean isEmpty();
+
+    /**
+     * Returns the size of the deque.
+     * Does not alter the deque.
+     *
+     * @return the number of items in the deque.
+     */
+    int size();
+
+    /**
+     * Clears the deque.
+     */
+    void clear();
+    /**
      * Adds {@code x} to the front of the deque.
      * Assumes {@code x} is never null.
      *
@@ -33,22 +53,6 @@ public interface Deque61B<T> extends Iterable<T> {
      * @return a new list copy of the deque.
      */
     List<T> toList();
-
-    /**
-     * Returns if the deque is empty.
-     * Does not alter the deque.
-     *
-     * @return {@code true} if the deque has no elements, {@code false} otherwise.
-     */
-    boolean isEmpty();
-
-    /**
-     * Returns the size of the deque.
-     * Does not alter the deque.
-     *
-     * @return the number of items in the deque.
-     */
-    int size();
 
     /**
      * Removes and returns the element at the front of the deque, if it exists.

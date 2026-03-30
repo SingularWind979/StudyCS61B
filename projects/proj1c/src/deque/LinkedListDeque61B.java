@@ -30,6 +30,19 @@ public class LinkedListDeque61B<T> extends AbstractDeque61B<T> {
     }
 
     /**
+     * Clears the linked list deque.
+     */
+    @Override
+    public void clear() {
+        super.clear();
+
+        sentinel.prev = sentinel;
+        sentinel.next = sentinel;
+
+        checkInvariants();
+    }
+
+    /**
      * Adds {@code x} to the front of the deque.
      * Assumes {@code x} is never null.
      *

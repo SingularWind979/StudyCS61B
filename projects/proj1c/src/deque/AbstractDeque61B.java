@@ -55,6 +55,14 @@ public abstract class AbstractDeque61B<T> implements Deque61B<T> {
     }
 
     /**
+     * Clears the deque.
+     */
+    @Override
+    public void clear() {
+        size = 0;
+    }
+
+    /**
      * Returns an iterator for the deque.
      *
      * @return an iterator for the deque.
