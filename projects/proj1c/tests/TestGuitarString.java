@@ -1,6 +1,7 @@
 /* Imports the required audio library from the
  * edu.princeton.cs.algs4 package. */
 import edu.princeton.cs.algs4.StdAudio;
+import gh2.GuitarNote;
 import org.junit.jupiter.api.Test;
 import gh2.GuitarString;
 
@@ -15,12 +16,20 @@ import static com.google.common.truth.Truth.assertWithMessage;
 public class TestGuitarString  {
     @Test
     public void testPluckTheAString() {
-        double CONCERT_A = 440.0;
-        GuitarString aString = new GuitarString(CONCERT_A);
+        GuitarString aString = new GuitarString(GuitarNote.A.frequency);
         aString.pluck();
         for (int i = 0; i < 50000; i += 1) {
             StdAudio.play(aString.sample());
             aString.tic();
+        }
+    }
+    @Test
+    public void testPluckTheCString() {
+        GuitarString cString = new GuitarString(GuitarNote.C.frequency);
+        cString.pluck();
+        for (int i = 0; i < 50000; i += 1) {
+            StdAudio.play(cString.sample());
+            cString.tic();
         }
     }
 
@@ -73,11 +82,13 @@ public class TestGuitarString  {
         s.tic();
         double s2 = s.sample();
         s.tic();
-        double s3 = s.sample();
+        // s3
+        s.sample();
         s.tic();
-        double s4 = s.sample();
+        // s4
+        s.sample();
 
-        // If tic once more, it should be equal to 0.996*0.5*(s1 + s2)
+        // If tic once more, it should be equal to 0.996 * 0.5 * (s1 + s2)
         s.tic();
 
         double s5 = s.sample();

@@ -6,6 +6,7 @@ import javax.sound.midi.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Logger;
 
 /**
  * Plays guitar from MIDI files.
@@ -13,6 +14,9 @@ import java.io.InputStream;
  * @author Eli Lipsitz
  */
 public class GuitarPlayer {
+    // Logger for logging errors.
+    private static final Logger GUITAR_PLAYER_LOGGER = Logger.getLogger(GuitarPlayer.class.getName());
+
     private Sequence sequence = null;
     private GuitarString[] strings;
     private double[] vol;
@@ -21,7 +25,8 @@ public class GuitarPlayer {
         try {
             sequence = MidiSystem.getSequence(source);
         } catch (IOException | InvalidMidiDataException e) {
-            e.printStackTrace();
+            GUITAR_PLAYER_LOGGER.severe(e.getMessage());
+            System.exit(1);
         }
     }
 
@@ -29,7 +34,8 @@ public class GuitarPlayer {
         try {
             sequence = MidiSystem.getSequence(source);
         } catch (IOException | InvalidMidiDataException e) {
-            e.printStackTrace();
+            GUITAR_PLAYER_LOGGER.severe(e.getMessage());
+            System.exit(1);
         }
     }
 
@@ -58,6 +64,9 @@ public class GuitarPlayer {
         return sum;
     }
 
+    /**
+     * Plays the guitar.
+     */
     public void play() {
         if (sequence == null) {
             return;

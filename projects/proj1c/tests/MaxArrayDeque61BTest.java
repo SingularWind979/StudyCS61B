@@ -12,15 +12,15 @@ import static com.google.common.truth.Truth.assertThat;
  */
 public class MaxArrayDeque61BTest {
     /** Comparator for integers. */
-    private static final Comparator<Integer> integerOrderComparator = Comparator.naturalOrder();
+    private final Comparator<Integer> integerOrderComparator = Comparator.naturalOrder();
 
     /** Comparator for strings. */
-    private static final Comparator<String> stringOrderComparator = Comparator.naturalOrder();
-    private static final Comparator<String> stringLengthComparator = Comparator.comparing(String::length);
+    private final Comparator<String> stringOrderComparator = Comparator.naturalOrder();
+    private final Comparator<String> stringLengthComparator = Comparator.comparing(String::length);
 
     /** Comparator for animals. */
-    private static final Comparator<Animal> animalAgeComparator = Comparator.comparing(Animal::age);
-    private static final Comparator<Animal> animalNameComparator = Comparator.comparing(Animal::name);
+    private final Comparator<Animal> animalAgeComparator = Comparator.comparing(Animal::age);
+    private final Comparator<Animal> animalNameComparator = Comparator.comparing(Animal::name);
 
     /** Abstract class for animals. */
     @SuppressWarnings("InnerClassMayBeStatic")

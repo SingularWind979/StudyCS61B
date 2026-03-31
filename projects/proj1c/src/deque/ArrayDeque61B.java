@@ -11,14 +11,18 @@ import java.util.NoSuchElementException;
  * @version 2.0
  */
 public class ArrayDeque61B<T> extends AbstractDeque61B<T> {
-    /** The initial and minium capacity of the deque. */
+    /** The default capacity of the deque. */
     private static final int DEFAULT_CAPACITY = 8;
     /** The geometric resize factor of the deque. */
     private static final int RESIZE_FACTOR = 2;
 
+    /** The initial capacity of the deque. */
+    private final int initCapacity;
+    /** Whether to enable smart resize mode. */
+    private final boolean enableSmartResize;
+
     /** The backing array of items in the deque. */
     private T[] items;
-
     /**
      * The array index of the next first item to be added in the backing array.
      * The array index of the actual first item is {@code validify(nextFirst + 1)}.
@@ -35,8 +39,28 @@ public class ArrayDeque61B<T> extends AbstractDeque61B<T> {
      * with the initial capacity of {@code DEFAULT_CAPACITY}.
      */
     public ArrayDeque61B() {
-        //noinspection unchecked
-        items = (T[]) new Object[DEFAULT_CAPACITY];
+        this(DEFAULT_CAPACITY, true);
+    }
+
+    /**
+     * Initializes an empty deque with the initial capacity.
+     * Enables fixed-size mode.
+     *
+     * @param initCapacity initial capacity, must be non-negative.
+     * @param enableSmartResize enable smart resize mode or not.
+     */
+    public ArrayDeque61B(int initCapacity, boolean enableSmartResize) {
+        // check capacity is non-negative
+        if (initCapacity < 0) {
+            throw new IllegalArgumentException("Initial capacity must be non-negative");
+        }
+
+        // initialize fields
+        this.initCapacity = initCapacity;
+        this.enableSmartResize = enableSmartResize;
+
+        // noinspection unchecked
+        items = (T[]) new Object[initCapacity];
         nextFirst = 0;
         nextLast = 1;
 
@@ -51,7 +75,7 @@ public class ArrayDeque61B<T> extends AbstractDeque61B<T> {
         super.clear();
 
         //noinspection unchecked
-        items = (T[]) new Object[DEFAULT_CAPACITY];
+        items = (T[]) new Object[initCapacity];
         nextFirst = 0;
         nextLast = 1;
 
@@ -310,6 +334,11 @@ public class ArrayDeque61B<T> extends AbstractDeque61B<T> {
      * Smart resize the backing array to an appropriate capacity.
      */
     private void smartResize() {
+        // if smart resize mode is enabled, do not resize
+        if (!enableSmartResize) {
+            return;
+        }
+
         // Complete full, expand once,
         // resize up
         if (capacity() == size) {
@@ -317,9 +346,9 @@ public class ArrayDeque61B<T> extends AbstractDeque61B<T> {
         }
 
         // Rather empty, can shrink twice,
-        // resize down, but no less than DEFAULT_CAPACITY
+        // resize down, but no less than INIT_CAPACITY
         if (capacity() > size * RESIZE_FACTOR * RESIZE_FACTOR
-                && capacity() > DEFAULT_CAPACITY * RESIZE_FACTOR) {
+                && capacity() > initCapacity * RESIZE_FACTOR) {
             resizeTo(capacity() / RESIZE_FACTOR);
         }
     }

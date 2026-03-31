@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
+import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -13,16 +14,21 @@ import java.util.zip.GZIPInputStream;
  * @author Eli Lipsitz
  */
 public class TTFAF {
-    public static void main(String[] args) {
+    // Logger for logging errors.
+    private static final Logger TTFAF_LOGGER = Logger.getLogger(TTFAF.class.getName());
 
+    public static void main(String[] args) {
         try {
             byte[] decoded = Base64.getDecoder().decode(TTFAF);
             InputStream source = new ByteArrayInputStream(decoded);
-            source = new GZIPInputStream(source);
-            GuitarPlayer player = new GuitarPlayer(source);
+            InputStream gzipSource = new GZIPInputStream(source);
+
+            // or source = new java.io.File("path/to/music.mid")
+            GuitarPlayer player = new GuitarPlayer(gzipSource);
             player.play();
         } catch (IOException e) {
-            e.printStackTrace();
+            TTFAF_LOGGER.severe(e.getMessage());
+            System.exit(1);
         }
     }
 
