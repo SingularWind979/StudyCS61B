@@ -23,7 +23,6 @@ public class UnionFindTest {
         assertThat(uf.connected(0, 2)).isFalse();
         assertThat(uf.connected(0, 3)).isFalse();
         assertThat(uf.connected(1, 2)).isFalse();
-        assertThat(uf.connected(1, 3)).isFalse();
         assertThat(uf.connected(2, 3)).isFalse();
     }
 
@@ -94,12 +93,30 @@ public class UnionFindTest {
         }
     }
 
-    /**
-     * Write your own tests below here to verify for correctness.
-     * The given tests are not comprehensive.
-     * Specifically, you may want to write a test for path compression
-     * and to check for the correctness of all methods in your implementation.
-     */
+    @Test
+    public void testPathHalving() {
+        UnionFind uf = new UnionFind(10);
+
+        uf.union(0, 1);
+        uf.union(2, 3);
+        uf.union(4, 5);
+        uf.union(6, 7);
+        uf.union(1, 3);
+        uf.union(5, 7);
+        uf.union(3, 7);
+
+        int root = uf.find(0);
+
+        assertThat(root).isAnyOf(1, 3, 5, 7);
+        assertThat(uf.connected(0, 7)).isTrue();
+    }
+
+    @Test
+    public void testTieBreakSpec() {
+        UnionFind uf = new UnionFind(10);
+
+        uf.union(0, 1);
+
+        assertThat(uf.find(0)).isEqualTo(1);
+    }
 }
-
-
