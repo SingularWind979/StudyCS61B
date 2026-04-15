@@ -1,0 +1,13 @@
+=================================================================
+BSTMap Speed Results (1,000,000 items)
+=================================================================
+ULLMap:   116.48s (O(N))
+BSTMap:     0.23s (O(log N)) - 506x faster
+TreeMap:    0.17s (O(log N))
+HashMap:    0.05s (O(1))
+=================================================================
+Summary:
+- Complexity Shift: BST logic cut runtime from minutes to ms.
+- Balance: Randomized Hibbard deletion kept height optimal.
+- Integrity: Interface refactor resolved removal data loss.
+=================================================================
