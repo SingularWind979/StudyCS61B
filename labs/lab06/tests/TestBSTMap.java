@@ -16,10 +16,10 @@ public class TestBSTMap {
     @Test
     public void testGenerics() {
         try {
-            BSTMap<String, String> a = new BSTMap<>();
-            BSTMap<String, Integer> b = new BSTMap<>();
-            BSTMap<Integer, String> c = new BSTMap<>();
-            BSTMap<Boolean, Integer> e = new BSTMap<>();
+            Map61B<String, String> a = new BSTMap<>();
+            Map61B<String, Integer> b = new BSTMap<>();
+            Map61B<Integer, String> c = new BSTMap<>();
+            Map61B<Boolean, Integer> e = new BSTMap<>();
         } catch (Exception e) {
             fail();
         }
@@ -32,7 +32,7 @@ public class TestBSTMap {
      */
     @Test
     public void testPutBasic() {
-        BSTMap<String, Integer> b = new BSTMap<>();
+        Map61B<String, Integer> b = new BSTMap<>();
         b.put("hi", 1);
         assertThat(b.containsKey("hi")).isTrue();
         assertThat(b.get("hi")).isEqualTo(1);
@@ -44,7 +44,7 @@ public class TestBSTMap {
      */
     @Test
     public void testGetBasic() {
-        BSTMap<String, Integer> b = new BSTMap<>();
+        Map61B<String, Integer> b = new BSTMap<>();
         assertThat(b.get("starChild")).isNull();
         assertThat(b.size()).isEqualTo(0);
         b.put("starChild", 5);
@@ -62,7 +62,7 @@ public class TestBSTMap {
      */
     @Test
     public void testContainsKeyBasic() {
-        BSTMap<String, Integer> b = new BSTMap<>();
+        Map61B<String, Integer> b = new BSTMap<>();
         assertThat(b.containsKey("waterYouDoingHere")).isFalse();
         b.put("waterYouDoingHere", 0);
         assertThat(b.containsKey("waterYouDoingHere")).isTrue();
@@ -76,7 +76,7 @@ public class TestBSTMap {
      */
     @Test
     public void testContainsKeyContainsNull() {
-        BSTMap<String, Integer> b = new BSTMap<>();
+        Map61B<String, Integer> b = new BSTMap<>();
         b.put("hi", null);
         assertThat(b.get("hi")).isNull();
         assertThat(b.containsKey("hi")).isTrue();
@@ -89,7 +89,7 @@ public class TestBSTMap {
      */
     @Test
     public void testSizeBasic() {
-        BSTMap<String, Integer> b = new BSTMap<>();
+        Map61B<String, Integer> b = new BSTMap<>();
         assertThat(b.size()).isEqualTo(0);
         b.put("hi", 1);
         assertThat(b.size()).isEqualTo(1);
@@ -108,7 +108,7 @@ public class TestBSTMap {
      */
     @Test
     public void testClearBasic() {
-        BSTMap<String, Integer> b = new BSTMap<>();
+        Map61B<String, Integer> b = new BSTMap<>();
         for (int i = 0; i < 455; i++) {
             b.put("hi" + i, 1 + i);
             //make sure put is working via containsKey and get
@@ -129,7 +129,7 @@ public class TestBSTMap {
      */
     @Test
     public void testTree() {
-        BSTMap<String, String> b = new BSTMap<>();
+        Map61B<String, String> b = new BSTMap<>();
         b.put("d", "parmesan");
         b.put("a", "mozzarella");
         b.put("c", "swiss");

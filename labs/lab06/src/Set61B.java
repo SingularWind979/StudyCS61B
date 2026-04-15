@@ -13,16 +13,18 @@ public interface Set61B<K> extends Iterable<K> {
      * unchanged and does not increase the size.
      *
      * @param key element to be inserted into this set
+     * @return the reference to the inserted element, or null if the element is already present
      * @throws IllegalArgumentException if the key is null
      */
-    boolean insert(K key);
+    K insert(K key);
 
     /**
      * Removes the specified element from this set if it is present.
      *
      * @param key element to be removed from this set, if present
+     * @return the reference to the deleted element, or null if no such element exists
      */
-    boolean delete(K key);
+    K delete(K key);
 
     /**
      * Returns true if this set contains the specified element.

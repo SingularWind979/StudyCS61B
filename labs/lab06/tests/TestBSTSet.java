@@ -9,11 +9,11 @@ public class TestBSTSet {
     @Test
     public void testAddUniqueness() {
         Set61B<String> s = new BSTSet<>();
-        // First insert should return true
-        assertThat(s.insert("A")).isTrue();
-        // Subsequent identical inserts should return false
-        assertThat(s.insert("A")).isFalse();
-        assertThat(s.insert("A")).isFalse();
+        // First insert should return the inserted element
+        assertThat(s.insert("A")).isNotNull();
+        // Subsequent identical inserts should return null
+        assertThat(s.insert("A")).isNull();
+        assertThat(s.insert("A")).isNull();
 
         // Final size must still be 1
         assertThat(s.size()).isEqualTo(1);
@@ -33,8 +33,8 @@ public class TestBSTSet {
         assertThat(s.contains(20)).isTrue();
         assertThat(s.contains(40)).isFalse();
 
-        // Verify delete returns true for existing items
-        assertThat(s.delete(20)).isTrue();
+        // Verify delete returns the deleted element for existing items
+        assertThat(s.delete(20)).isNotNull();
         assertThat(s.contains(20)).isFalse();
         assertThat(s.size()).isEqualTo(2);
     }

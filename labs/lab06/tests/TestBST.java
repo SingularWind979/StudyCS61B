@@ -24,12 +24,12 @@ public class TestBST {
         OrderedTree<String> b = new BST<>();
         assertThat(b.size()).isEqualTo(0);
 
-        // Test unique insert returns true
-        assertThat(b.insert("hi")).isTrue();
+        // Test unique insert returns the inserted element
+        assertThat(b.insert("hi")).isEqualTo("hi");
         assertThat(b.size()).isEqualTo(1);
 
-        // Test duplicate insert returns false
-        assertThat(b.insert("hi")).isFalse();
+        // Test duplicate insert returns null
+        assertThat(b.insert("hi")).isNull();
         assertThat(b.size()).isEqualTo(1);
 
         for (int i = 0; i < 455; i++) {

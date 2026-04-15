@@ -19,6 +19,7 @@ public class BST<K extends Comparable<K>> implements OrderedTree<K> {
     private final Node<K> sentinel;
 
     /**
+     * Nil node for the BST.
      * Marks the bottom boundary of the tree.
      * If a node is a leaf, then all its children should be NIL.
      */
@@ -50,26 +51,34 @@ public class BST<K extends Comparable<K>> implements OrderedTree<K> {
      * Inserts the specified key into this ordered tree.
      *
      * @param key the key to insert
-     * @return true if the key was successfully inserted, false otherwise
+     * @return the reference to the key inserted, or null if the key is already inserted
+     * @throws IllegalArgumentException if the key is null
      */
     @Override
-    public boolean insert(K key) {
+    public K insert(K key) {
+        if (key == null) {
+            throw new IllegalArgumentException("Key cannot be null");
+        }
         modified = false;
         setRoot(add(key, root()));
-        return modified;
+        return modified ? key : null;
     }
 
     /**
      * Deletes the specified key from this ordered tree.
      *
      * @param key the key to delete
-     * @return true if the key was successfully deleted, false otherwise
+     * @return the reference to the key deleted, or null if the key is not found
+     * @throws IllegalArgumentException if the key is null
      */
     @Override
-    public boolean delete(K key) {
+    public K delete(K key) {
+        if (key == null) {
+            throw new IllegalArgumentException("Key cannot be null");
+        }
         modified = false;
         setRoot(remove(key, root()));
-        return modified;
+        return modified ? key : null;
     }
 
     /**
@@ -78,10 +87,32 @@ public class BST<K extends Comparable<K>> implements OrderedTree<K> {
      * @param key the key to check for
      * @return true if this ordered tree contains the specified key,
      * false otherwise
+     * @throws IllegalArgumentException if the key is null
      */
     @Override
     public boolean contains(K key) {
+        if (key == null) {
+            throw new IllegalArgumentException("Key cannot be null");
+        }
         return !isOff(find(key, root()));
+    }
+
+    /**
+     * Returns the specified key if it exists in this ordered tree,
+     * or null otherwise.
+     *
+     * @param key the key to search for
+     * @return the reference to the key, or null if the key is not found
+     */
+    @Override
+    public K find(K key) {
+        if (key == null) {
+            throw new IllegalArgumentException("Key cannot be null");
+        }
+        // find can directly point to the stored data,
+        // instead of the outside storing wrapper
+        Node<K> found = find(key, root());
+        return !isOff(found) ? found.key : null;
     }
 
     /**
@@ -234,16 +265,15 @@ public class BST<K extends Comparable<K>> implements OrderedTree<K> {
             current.right = remove(key, current.right);
         } else {                // Key found
             // remove it by update current node
+            modified = true;
             // which later will hook up
             switch (childNumOf(current)) {
                 case 0 -> {
                     size--;
-                    modified = true;
                     current = NIL;
                 }
                 case 1 -> {
                     size--;
-                    modified = true;
                     current = !isOff(current.left) ? current.left : current.right;
                 }
                 case 2 -> {
@@ -251,9 +281,13 @@ public class BST<K extends Comparable<K>> implements OrderedTree<K> {
                     // will make the tree balanced mathematically
                     // remember only decrease size when actually node deletion happens
                     if (Math.random() < 0.5) {
-                        predecessorReplace(current);
+                        Node<K> predecessor = predecessorOf(current);
+                        current.key = predecessor.key;
+                        current.left = remove(predecessor.key, current.left);
                     }  else {
-                        successorReplace(current);
+                        Node<K> successor = successorOf(current);
+                        current.key = successor.key;
+                        current.right = remove(successor.key, current.right);
                     }
                 }
                 default -> {
@@ -362,26 +396,6 @@ public class BST<K extends Comparable<K>> implements OrderedTree<K> {
             cnt++;
         }
         return cnt;
-    }
-
-    /**
-     * Replaces the specified node with its successor.
-     *
-     * @param node the node to replace
-     */
-    private void successorReplace(Node<K> node) {
-        node.key = successorOf(node).key;
-        node.right = remove(node.key, node.right);
-    }
-
-    /**
-     * Replaces the specified node with its predecessor.
-     *
-     * @param node the node to replace
-     */
-    private void predecessorReplace(Node<K> node) {
-        node.key = predecessorOf(node).key;
-        node.left = remove(node.key, node.left);
     }
 
     /**

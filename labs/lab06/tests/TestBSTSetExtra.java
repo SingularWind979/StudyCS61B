@@ -34,7 +34,7 @@ public class TestBSTSetExtra {
         s.insert('C'); // Right
 
         // Delete root - checks if Delegation handles tree re-linking
-        assertThat(s.delete('B')).isTrue();
+        assertThat(s.delete('B')).isEqualTo('B');
         assertThat(s.contains('B')).isFalse();
         assertThat(s.size()).isEqualTo(2);
 
@@ -47,8 +47,8 @@ public class TestBSTSetExtra {
     public void testDeleteMissing() {
         Set61B<String> s = new BSTSet<>();
         s.insert("Presence");
-        // Deleting non-existent item should return false
-        assertThat(s.delete("Absence")).isFalse();
+        // Deleting non-existent item should return null
+        assertThat(s.delete("Absence")).isNull();
         assertThat(s.size()).isEqualTo(1);
     }
 }

@@ -14,17 +14,19 @@ public interface OrderedTree<K extends Comparable<K>> extends Iterable<K> {
      * Inserts the specified key into this ordered tree.
      *
      * @param key the key to insert
-     * @return true if the key was successfully inserted, false otherwise
+     * @return the reference to the key inserted, or null if the key is already inserted
+     * @throws IllegalArgumentException if the key is null
      */
-    boolean insert(K key);
+    K insert(K key);
 
     /**
      * Deletes the specified key from this ordered tree.
      *
      * @param key the key to delete
-     * @return true if the key was successfully deleted, false otherwise
+     * @return the reference to the key deleted, or null if the key is not found
+     * @throws IllegalArgumentException if the key is null
      */
-    boolean delete(K key);
+    K delete(K key);
 
     /**
      * Returns whether this ordered tree contains the specified key.
@@ -32,8 +34,19 @@ public interface OrderedTree<K extends Comparable<K>> extends Iterable<K> {
      * @param key the key to check for
      * @return true if this ordered tree contains the specified key,
      * false otherwise
+     * @throws IllegalArgumentException if the key is null
      */
     boolean contains(K key);
+
+    /**
+     * Returns the specified key if it exists in this ordered tree,
+     * or null otherwise.
+     *
+     * @param key the key to search for
+     * @return the reference to the key, or null if the key is not found
+     * @throws IllegalArgumentException if the key is null
+     */
+    K find(K key);
 
     /**
      * Returns the number of keys in this ordered tree.

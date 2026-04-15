@@ -16,7 +16,7 @@ public class TestBSTMapExtra {
      */
     @Test
     public void testKeySet() {
-        BSTMap<String, Integer> b = new BSTMap<>();
+        Map61B<String, Integer> b = new BSTMap<>();
         TreeSet<String> values = new TreeSet<>();
         for (int i = 0; i < 455; i++) {
             b.put("hi" + i, 1);
@@ -41,7 +41,7 @@ public class TestBSTMapExtra {
      */
     @Test
     public void testRemoveRoot() {
-        BSTMap<String, String> q = new BSTMap<>();
+        Map61B<String, String> q = new BSTMap<>();
         q.put("c", "a");
         q.put("b", "a");
         q.put("a", "a");
@@ -54,7 +54,6 @@ public class TestBSTMapExtra {
         assertThat(q.containsKey("b")).isTrue();
         assertThat(q.containsKey("d")).isTrue();
         assertThat(q.containsKey("e")).isTrue();
-
     }
 
     /**
@@ -63,7 +62,7 @@ public class TestBSTMapExtra {
      */
     @Test
     public void testRemoveThreeCases() {
-        BSTMap<String, String> q = new BSTMap<>();
+        Map61B<String, String> q = new BSTMap<>();
         q.put("c", "a");
         q.put("b", "a");
         q.put("a", "a");
@@ -92,7 +91,7 @@ public class TestBSTMapExtra {
      */
     @Test
     public void testRemoveRootEdge() {
-        BSTMap<Character, Integer> rightChild = new BSTMap<>();
+        Map61B<Character, Integer> rightChild = new BSTMap<>();
         rightChild.put('A', 1);
         rightChild.put('B', 2);
         assertThat(rightChild.remove('A')).isEqualTo(1);
@@ -105,18 +104,17 @@ public class TestBSTMapExtra {
         assertThat(rightChild.remove('A')).isEqualTo(100);
         assertThat(rightChild.size()).isEqualTo(9);
 
-        BSTMap<Character, Integer> leftChild = new BSTMap<>();
+        Map61B<Character, Integer> leftChild = new BSTMap<>();
         leftChild.put('B', 1);
         leftChild.put('A', 2);
         assertThat(leftChild.remove('B')).isEqualTo(1);
         assertThat(leftChild.size()).isEqualTo(1);
         assertThat(leftChild.get('B')).isNull();
 
-        BSTMap<Character, Integer> noChild = new BSTMap<>();
+        Map61B<Character, Integer> noChild = new BSTMap<>();
         noChild.put('Z', 15);
         assertThat(noChild.remove('Z')).isEqualTo(15);
         assertThat(noChild.size()).isEqualTo(0);
         assertThat(noChild.get('Z')).isNull();
     }
-
 }

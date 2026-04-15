@@ -2,16 +2,15 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * A data structure that uses a linked list to store pairs of keys and values.
- * Any key must appear at most once in the dictionary,
+ * ULLMap implementation:
+ * A linked list based map implementation.
+ * Any key must appear at most once in the map,
  * but values may appear multiple times.
- * Key operations are get(k), put(k, v), and contains(k) methods.
- * The value associated to a key is the value in the last call to put with that key.
  *
- * @param <K> the type of keys stored in this dictionary
- * @param <V> the type of values stored in this dictionary
+ * @param <K> the type of keys stored in this map
+ * @param <V> the type of values stored in this map
  *
- * @author CS61B staff
+ * @author CS61B staff + SingularWind
  */
 public class ULLMap<K, V> implements Map61B<K, V> {
     /** Keys and values are stored in a linked list. */
@@ -86,7 +85,17 @@ public class ULLMap<K, V> implements Map61B<K, V> {
     }
 
     /**
-     * Removes every mapping from this map.
+     * Returns true if this map contains no key-value mappings.
+     *
+     * @return true if this map is empty
+     */
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    /**
+     * Removes all the mapping from this map.
      */
     @Override
     public void clear() {

@@ -1,19 +1,29 @@
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
- * A data structure that uses a binary search tree to store pairs of keys and values.
- * Any key must appear at most once in the dictionary,
+ * BSTMap implementation:
+ * A binary search tree based map implementation.
+ * Any key must appear at most once in the map,
  * but values may appear multiple times.
- * The value associated to a key is the value in the last call to put with that key.
  *
- * @param <K> the type of keys stored in this dictionary
- * @param <V> the type of values stored in this dictionary
+ * @param <K> the type of keys stored in this map,
+ * must be {@link Comparable}
+ * @param <V> the type of values stored in this map
  *
  * @author SingularWind
  */
-public class BSTMap<K, V> implements Map61B<K, V> {
+public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
+    OrderedTree<Entry<K, V>> tree;        // the underlying ordered tree
+
+    /**
+     * Constructs a new BSTMap.
+     */
+    public BSTMap() {
+        this.tree = new BST<>();
+    }
+
     /**
      * Associates the specified value with the specified key in this map.
      * If the map already contains the specified key,
@@ -24,7 +34,13 @@ public class BSTMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public void put(K key, V value) {
-
+        Entry<K, V> putted = tree.find(new Entry<>(key, null));
+        if (putted != null) {
+            putted.value = value;
+        } else {
+            putted = new Entry<>(key, value);
+            tree.insert(putted);
+        }
     }
 
     /**
@@ -35,7 +51,24 @@ public class BSTMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public V get(K key) {
-        return null;
+        Entry<K, V> find = tree.find(new Entry<>(key, null));
+        return find != null ? find.value : null;
+    }
+
+    /**
+     * Removes the mapping for the specified key from this map if present.
+     *
+     * @param key key to remove mapping for
+     * @return value mapped to the key, or null if no such mapping exists
+     */
+    @Override
+    public V remove(K key) {
+        Entry<K, V> found = tree.find(new Entry<>(key, null));
+        if (found == null) {
+            return null;
+        }
+        Entry<K, V> removed = tree.delete(found);
+        return removed != null ? removed.value : null;
     }
 
     /**
@@ -47,7 +80,8 @@ public class BSTMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public boolean containsKey(K key) {
-        return false;
+        Entry<K, V> find = tree.find(new Entry<>(key, null));
+        return find != null;
     }
 
     /**
@@ -57,73 +91,83 @@ public class BSTMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public int size() {
-        return 0;
+        return tree.size();
     }
 
     /**
-     * Removes every mapping from this map.
+     * Returns whether this map is empty.
+     *
+     * @return true if this map is empty, false otherwise
+     */
+    @Override
+    public boolean isEmpty() {
+        return tree.isEmpty();
+    }
+
+    /**
+     * Removes all the mapping from this map.
      */
     @Override
     public void clear() {
-
+        tree.clear();
     }
 
     /**
      * Returns a Set view of the keys contained in this map.
      *
      * @return Set view of the keys contained in this map
-     * @throws UnsupportedOperationException if you don't implement this
      */
     @Override
     public Set<K> keySet() {
-        return Set.of();
+        Set<K> keys = new TreeSet<>();
+        for (Entry<K, V> entry : tree) {
+            keys.add(entry.key);
+        }
+        return keys;
     }
 
     /**
-     * Removes the mapping for the specified key from this map if present.
+     * Returns an iterator over elements of type {@code K} in this map.
      *
-     * @param key key to remove mapping for
-     * @return value mapped to the key, or null if no such mapping exists
-     * @throws UnsupportedOperationException if you don't implement this
-     */
-    @Override
-    public V remove(K key) {
-        return null;
-    }
-
-    /**
-     * Returns an iterator over elements of type {@code T}.
-     *
-     * @return an Iterator.
+     * @return an Iterator over elements of type {@code K} in this map
      */
     @SuppressWarnings("NullableProblems")
     @Override
     public Iterator<K> iterator() {
-        return new BSTMapIterator();
+        return keySet().iterator();
     }
 
-    private class BSTMapIterator implements Iterator<K> {
+    /**
+     * Entry class for the map.
+     *
+     * @param <K> the type of keys stored in this map
+     * @param <V> the type of values stored in this map
+     */
+    private static class Entry<K extends Comparable<K>, V> implements Comparable<Entry<K, V>> {
+        final K key;        // key of the entry, immutable
+        V value;            // value of the entry
+
         /**
-         * Returns {@code true} if the iteration has more elements.
-         * (In other words, returns {@code true} if {@link #next} would
-         * return an element rather than throwing an exception.)
+         * Constructs a new entry with the specified key and value.
          *
-         * @return {@code true} if the iteration has more elements
+         * @param key   key to put value for
+         * @param value value to put for the key
          */
-        @Override
-        public boolean hasNext() {
-            return false;
+        Entry(K key, V value) {
+            this.key = key;
+            this.value = value;
         }
 
         /**
-         * Returns the next element in the iteration.
+         * Compares this entry with the specified entry for order by comparing key.
          *
-         * @return the next element in the iteration
-         * @throws NoSuchElementException if the iteration has no more elements
+         * @param o the entry to compare with
+         * @return a negative integer, zero, or a positive integer
+         * as this entry is less than, equal to, or greater than the specified entry
          */
         @Override
-        public K next() {
-            return null;
+        public int compareTo(Entry<K, V> o) {
+            return this.key.compareTo(o.key);
         }
     }
 }

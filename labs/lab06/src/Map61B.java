@@ -1,12 +1,15 @@
 import java.util.Set;
 
 /**
- * Map61B interface
+ * Map61B interface:
+ * An associative container that maps unique keys to values.
+ * Any key must appear at most once in the map,
+ * but values may appear multiple times.
  *
- * @param <K> the type of keys stored in this dictionary
- * @param <V> the type of values stored in this dictionary
+ * @param <K> the type of keys stored in this map
+ * @param <V> the type of values stored in this map
  *
- * @author CS61B staff
+ * @author CS61B staff + SingularWind
  */
 public interface Map61B<K, V> extends Iterable<K> {
     /**
@@ -28,6 +31,14 @@ public interface Map61B<K, V> extends Iterable<K> {
     V get(K key);
 
     /**
+     * Removes the mapping for the specified key from this map if present.
+     *
+     * @param key key to remove mapping for
+     * @return value mapped to the key, or null if no such mapping exists
+     */
+    V remove(K key);
+
+    /**
      * Returns whether this map contains a mapping for the specified key.
      *
      * @param key key to check for
@@ -44,7 +55,14 @@ public interface Map61B<K, V> extends Iterable<K> {
     int size();
 
     /**
-     * Removes every mapping from this map.
+     * Returns true if this map contains no key-value mappings.
+     *
+     * @return true if this map is empty
+     */
+    boolean isEmpty();
+
+    /**
+     * Removes all the mapping from this map.
      */
     void clear();
 
@@ -52,16 +70,6 @@ public interface Map61B<K, V> extends Iterable<K> {
      * Returns a Set view of the keys contained in this map.
      *
      * @return Set view of the keys contained in this map
-     * @throws UnsupportedOperationException if you don't implement this
      */
     Set<K> keySet();
-
-    /**
-     * Removes the mapping for the specified key from this map if present.
-     *
-     * @param key key to remove mapping for
-     * @return value mapped to the key, or null if no such mapping exists
-     * @throws UnsupportedOperationException if you don't implement this
-     */
-    V remove(K key);
 }

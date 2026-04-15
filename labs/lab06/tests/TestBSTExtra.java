@@ -34,12 +34,12 @@ public class TestBSTExtra {
         b.insert(12); // Leaf of 25
 
         // Case 0: Remove leaf
-        assertThat(b.delete(12)).isTrue();
+        assertThat(b.delete(12)).isEqualTo(12);
         assertThat(b.contains(12)).isFalse();
         assertThat(b.size()).isEqualTo(3);
 
         // Case 1: Remove node with one child
-        assertThat(b.delete(25)).isTrue();
+        assertThat(b.delete(25)).isEqualTo(25);
         assertThat(b.contains(25)).isFalse();
         assertThat(b.contains(75)).isTrue();
         assertThat(b.size()).isEqualTo(2);
@@ -55,7 +55,7 @@ public class TestBSTExtra {
         }
 
         // Case 2: Remove root (50) which has two children
-        assertThat(b.delete(50)).isTrue();
+        assertThat(b.delete(50)).isEqualTo(50);
 
         assertThat(b.contains(50)).isFalse();
         assertThat(b.size()).isEqualTo(6);
@@ -73,7 +73,7 @@ public class TestBSTExtra {
         BST<Integer> b = new BST<>();
         b.insert(10);
         int initialSize = b.size();
-        assertThat(b.delete(99)).isFalse(); // Should not crash
+        assertThat(b.delete(99)).isNull(); // Should not crash
         assertThat(b.size()).isEqualTo(initialSize);
     }
 }

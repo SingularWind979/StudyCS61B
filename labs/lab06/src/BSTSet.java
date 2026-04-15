@@ -26,10 +26,11 @@ public class BSTSet<K extends Comparable<K>> implements Set61B<K> {
      * unchanged and does not increase the size.
      *
      * @param key element to be inserted into this set
+     * @return the reference to the inserted element
      * @throws IllegalArgumentException if the key is null
      */
     @Override
-    public boolean insert(K key) {
+    public K insert(K key) {
         return tree.insert(key);
     }
 
@@ -37,9 +38,10 @@ public class BSTSet<K extends Comparable<K>> implements Set61B<K> {
      * Removes the specified element from this set if it is present.
      *
      * @param key element to be removed from this set, if present
+     * @return the reference to the deleted element, or null if no such element exists
      */
     @Override
-    public boolean delete(K key) {
+    public K delete(K key) {
         return tree.delete(key);
     }
 
